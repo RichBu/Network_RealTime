@@ -1,0 +1,11 @@
+                        <h3>Roll diameter : {{rollDiam}}</h3>
+                        <h3>Pocket diameter : {{cavityDiam}}</h3>
+                        <h3>Pocket depth : {{cavityDepth}}</h3>
+                        <br/>
+                        <h2>Calculated Values</h2>
+                        <h3>Y min value : {{Ydim01}}</h3>
+                        <h3>Y min value : {{Ydim02}}</h3>
+
+
+                    
+pppp;;,,,

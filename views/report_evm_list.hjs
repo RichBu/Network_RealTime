@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>Device Logger</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<!--  Designed by Rich Budek @  www.RichBudek.com -->
+		<!--  all rights reserved by Rich Budek -->
+		<meta name="description" content="Device Data Logger">
+		<meta name="author" content="Rich Budek">
+		<meta name="author_website" content="www.RichBudek.com">
+		<meta name="copyright" content="Rich Budek at www.RichBudek.com all rights reserved">
+		<meta name='design package' content="Rich Budek crooked little fingers">
+        <!--    -->
+
+        <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.3.0/handlebars.js"></script>
+
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
+           crossorigin="anonymous">
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r"
+            crossorigin="anonymous">
+
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+          crossorigin="anonymous"></script>
+
+        <link rel='stylesheet' type='text/css' href='/css/index.css'>
+
+	</head>
+
+	<body>
+        <noscript>
+          You need to enable JavaScript to run this app.
+        </noscript>
+	        <header class="container text-center">
+            <div class="row" style="padding: 20px 0px 0px 0px;" >
+				<!--Site Logo-->
+                <div class="col-xs-4">
+  			      <button id="btn-back" type="button" class="btn btn-primary leftButton" >Back</button>
+                    <!-- 
+						<a href='/'><img src="/images/genielogo.png" alt='TableTop Genie Logo' id='pageLogo' class='img img-thumbnail'></a>
+					-->	
+                </div>
+                <div class="col-xs-4">
+					<br/>
+                </div>
+                <div class="col-xs-4">
+  			      <button id="btn-about" type="button" class="btn btn-primary aboutButton" >About</button>
+                </div>
+            </div>
+            <div class="row" style="padding: 20px 0px 0px 0px;" >
+                <h2>Device Events by Machine</h2>
+            </div>
+			<hr/>
+        </header>
+		<div class="backgroundListStyle blankImage">
+            <div class="crossfade">
+                <figure></figure>
+                <figure></figure>
+                <figure></figure>
+                <figure></figure>
+                <figure></figure>
+                <figure></figure>
+                <figure></figure>
+                <figure></figure>
+                <figure></figure>
+                <figure></figure>
+                <figure></figure>
+            </div>
+		</div>
+        <main class="container container-fluid containerStyle">
+			<div style="max-height: 1000px;">
+                <div class="row rowStyle row-click" data-row="test">
+					<!--
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					-->
+						<h5>
+						<table>
+  							<tr class="row row-hover">
+    						<th class="tdNorm">Event</th>
+    						<th class="tdNorm">Start</th>
+    						<th class="tdNorm">Stop</th>
+    						<th class="tdNorm">|</th>
+    						<th class="tdNorm">Duration</th>
+    						<th class="tdNorm">|</th>
+    						<th class="tdNorm">On Time</th>
+    						<th class="tdNorm">Off Time</th>
+  							</tr>
+							{{#outputObj}}
+								<tr class="row row-hover">
+									<td class="tdNorm">{{event_str}}</td>
+									<td class="tdNorm">{{start_time_str}}</td>
+									<td class="tdNorm">{{end_time_str}}</td>
+									<td class="tdNorm">|</td>
+									<td class="tdNorm">{{event_duration_utc}}</td>
+									<td class="tdNorm">|</td>
+									<td class="tdNorm">{{on_time_utc}}</td>
+									<td class="tdNorm">{{off_time_utc}}</td>
+								</tr>
+							{{/outputObj}}
+						</table>
+						</h5>
+					<!--
+					</div>
+					-->
+                </div>
+				<br/>
+				<br/>
+				<br/>
+			</div>
+        </main>
+
+        <!--Footer-->
+        <!-- <footer class="container"> -->
+        <div class="text-center navbar navbar-fixed-bottom" id='footer'>
+            <div class="container-fluid">
+                <br/>
+                <span id='copyright'>© 2020 Copyright by Rich Budek all rights reserved</span>
+            </div>
+        </div>
+        <!-- </footer> -->
+
+		<!-- Modal about  -->
+		<div id="modal-about" class="modal">
+			<div class="modal-content">
+				<h3>Report - Events by Device / Machine</h3>
+				<div class="divider"></div>
+				<h4>
+					<br/>This report lists all of the events that happened by device / machine
+					on the network.  The main log file polls all of the devices / machines 
+					every minute.  The upload program written in Visual C# cleans up each 
+					record and turns them into events.  So, only device changes are listed here
+					along with the time duration between the changes.					
+					<br/>
+					<br/>
+					<br/> Rich Budek   RB@RichBudek.com
+					<br/>
+				</h4>
+				<div style="padding: 20px 0px 10px 0px;"  class="divider">
+					<button id="close-about" type="button" class="btn btn-primary closeButton" data-dismiss="modal">Close</button>
+					<button id="btn-exit" type="button" class="btn btn-primary exitButton" data-dismiss="modal">&nbspExit&nbsp</button>
+					<br/><br/>
+				</div>
+				
+				</div>
+			</div>
+		</div>
+
+		<script>
+		var closeModals = function() {
+			var modAbout = $("#modal-about");
+			$(modAbout).css("display", "none");		
+			window.location.reload(false); 
+		};
+
+
+		var evalRowClick = function (data) {
+			//console.log( this );
+			console.log($(this).attr("data-row"));
+			rowClickedTag = $(this);  //save for later
+			var rowClicked = $(rowClickedTag).attr("data-row");
+			//var urlString = "/video/play/"+rowClicked;  
+			//window.location.href = urlString;		
+		};
+
+  	    $(document).ready(function () {
+		  //document is ready, so move the incoming data over
+          //closeModals();
+
+		  $('#close-about').on('click', function(event) {
+			  event.preventDefault();
+			  closeModals();
+		  });
+
+		  $('#btn-about').on('click', function (event) {
+			  event.preventDefault();
+			  var modAbout = $("#modal-about");
+			  $(modAbout).css("display", "block");
+		  });
+
+		  $('#btn-exit').on('click', function (event) {
+			  event.preventDefault();
+			  window.location.href = "http://www.msn.com";
+		  });
+
+
+		  $('#btn-back').on('click', function (event) {
+			  event.preventDefault();
+			  window.location.href = "\\reports";
+		  });
+
+
+	      $(document.body).on("click", ".row-click", evalRowClick);
+  	    });
+
+		</script>
+	</body>
+
+</html>

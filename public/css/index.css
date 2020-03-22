@@ -1,0 +1,322 @@
+
+
+.row-hover:hover {
+    background: rgb(8, 226, 255);
+}
+
+hr {
+  height: 3px;
+  color: black;
+  background-color: black;
+}
+
+.tdNorm {
+  margin: 0px 5px;
+  padding: 3px 10px;
+}
+
+input {
+  margin: 0px 0px 10px 0px;
+  padding: 0px 0px 5px 0px;
+  width: 100%;
+  min-height: 45px;
+  font-size: 25px;
+  color: rgb(0, 145, 255);
+  opacity: 1.0;
+}
+
+.input2 {
+  margin: 0px 0px 10px 0px;
+  padding: 0px 0px 5px 0px;
+  float: left;
+  width: 90%;
+  min-height: 45px;
+  font-size: 25px;
+  color: rgb(0, 145, 255);
+  opacity: 1.0;
+}
+
+.rowStyle {
+    color: blue;
+    min-height: 90%;
+    /* height: 100%; */
+    /* opacity: 0.3; */
+    position: relative; 
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    width: 90%;
+    min-width: 300px;
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    z-index: 10;
+    /*background: url('images/CNC_01_full_back.jpg');*/
+    /* background: rgba(255,255,255,0.9);  */
+  }
+
+
+.videoRowStyle {
+    color: blue;
+    min-height: 90%;
+    /* height: 100%; */
+    /* opacity: 0.3; */
+    position: relative; 
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    width: 90%;
+    min-width: 728px;
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    z-index: 10;
+    /*background: url('images/CNC_01_full_back.jpg');*/
+    /* background: rgba(255,255,255,0.9);  */
+  }
+
+.videoPlayerStyle {
+    margin: 5px 5px 30px 5px;
+  }
+
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 20; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+
+
+
+/* The Login Button */
+.loginButton {
+  color: #fefefe;
+  float: right;
+  font-size: 20px;
+  font-weight: bold;
+  margin: 0px 0px 10px 0px;
+  padding: 0px 0px 5px 0px;
+  width: 100%;
+}
+
+.loginButton:hover,
+.loginButton:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+/* The Login Button */
+.calcButton {
+  color: #fefefe;
+  float: right;
+  font-size: 20px;
+  font-weight: bold;
+  margin: 5px 0px 10px 0px;
+  padding: 5px 0px 10px 0px;
+  width: 100%;
+}
+
+.calcButton:hover,
+.calcButton:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+/* The small help button by the input */
+.helpInputButton {
+  color: #fefefe;
+  float: right;
+  font-size: 20px;
+  font-weight: bold;
+  margin: 5px 0px 10px 0px;
+  padding: 0px 0px 5px 0px;
+  width: 5%;
+}
+
+.helpInputButton:hover,
+.helpInputButton:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+
+/* The about Button */
+.aboutButton {
+  color: #fefefe;
+  float: right;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.aboutButton:hover,
+.aboutButton:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* The left Button */
+.leftButton {
+  color: #fefefe;
+  float: left;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.leftButton:hover,
+.leftButton:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+/* The Close Button */
+.closeButton {
+  color: #aaa;
+  float: left;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.closeButton:hover,
+.closeButton:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+/* The Exit Button */
+.exitButton {
+  color: #aaa;
+  float: right;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.exitButton:hover,
+.exitButton:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.containerStyle {
+    backface-visibility: hidden;
+    background-size: cover;
+    background-position: center center;
+    color: transparent;
+    /*min-height: 100%; */
+    height: 9000px;
+    /* opacity: 0.3; */
+    position: relative; 
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    width: 90%;
+    margin: 0px;
+    padding: 0px 0px 0px 10%;
+    z-index: 5;
+    background-image: url('/images/Calc_back_01.jpg') repeat center;
+    /*background: url('images/CNC_01_full_back.jpg');*/
+    /* background: rgba(255,255,255,0.9);  */
+  }
+
+  .containerStyleIndex {
+    /* for the container on the index page */
+    /* backface-visibility: hidden; */
+    /* background-size: cover; */
+    /* background-position: center center; */
+    color: transparent;
+    /* min-height: 100%; */
+    /* height: 100%; */
+    /* opacity: 0.7; 
+    position: relative; 
+    /* top: 0px; */
+    /* left: 0px; */
+    /* bottom: 0px; */
+    /* width: 90%; */
+    /* margin: 0px; */
+    padding: 0px 0px 0px 5%;
+    z-index: 5;
+    /* background: url('../images/Oval_back_01.jpg'); */
+    /* background-repeat: repeat; */
+    /* background-image: url('/images/Oval_back_01.jpg') repeat center; */
+    /* background-repeat: repeat-y; */
+    background: rgba(255,255,255,0.9); 
+  }
+
+  .backgroundListStyle {
+    /* background: url("/images/Pic_01.jpg") repeat; */
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    opacity: 0.2;
+    min-height: 100%;
+    height: 9000px;
+    width: 100%;
+    z-index: -1;
+  }
+
+  .backgroundIndexStyle {
+    background: url("/images/IIoT_back_02.jpg") repeat center;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    opacity: 0.1;
+    min-height: 100%;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+  }
+
+  .inputDivStyle {
+    opacity: 1.0;
+    z-index: 7;
+  }
+
+  .transDivStyle {
+    /* transparent div */
+    opacity: 0.6;
+  }
+
+
+  .blankImage > figure {
+    backface-visibility: hidden;
+    background-image: url('/images/Oval_01.png') repeat;
+    /* background-size: cover; */
+    /* background-position: center center; */
+    color: transparent;
+    /* height: 100%; */
+    opacity: 1;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    min-width: 50%;
+    min-height: 50%;
+    z-index: -10;
+  }
+

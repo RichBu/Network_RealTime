@@ -1,0 +1,251 @@
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>Device Data Logger</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<!--  Designed by Rich Budek @  www.RichBudek.com -->
+		<!--  all rights reserved by Rich Budek -->
+		<meta name="description" content="Device Data Logger">
+		<meta name="author" content="Rich Budek">
+		<meta name="author_website" content="www.RichBudek.com">
+		<meta name="copyright" content="Rich Budek at www.RichBudek.com all rights reserved">
+		<meta name='design package' content="Rich Budek crooked little fingers">
+        <!--    -->
+
+        <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.3.0/handlebars.js"></script>
+
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
+           crossorigin="anonymous">
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r"
+            crossorigin="anonymous">
+
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+          crossorigin="anonymous"></script>
+
+		<link rel='stylesheet' type='text/css' href='/css/index.css'>
+	</head>
+
+	<body>
+        <noscript>
+          You need to enable JavaScript to run this app.
+        </noscript>
+        <header class="container text-center">
+            <div class="row" style="padding: 20px 0px 0px 0px;" >
+				<!--Site Logo-->
+                <div class="col-xs-4">
+  			      <button id="btn-about" type="button" class="btn btn-primary leftButton" >About</button>
+                    <!-- 
+						<a href='/'><img src="/images/genielogo.png" alt='TableTop Genie Logo' id='pageLogo' class='img img-thumbnail'></a>
+					-->	
+                </div>
+                <div class="col-xs-4">
+					<br/>
+                </div>
+                <div class="col-xs-4">
+  			      <button id="btn-tech" type="button" class="btn btn-primary aboutButton" >Tech Info</button>
+                </div>
+            </div>
+            <div class="row" style="padding: 0px 0px 0px 0px;" >
+                    <h1>Device Data Logger</h1>
+                    <h3>by Rich Budek</h3>
+			</div>
+			<hr/>
+        </header>
+		<div class="backgroundIndexStyle">
+		</div>
+		<div style="padding: 40px 0px 40px 0px;">
+  				<div class="col-lg-4 col-md-4 col-sm-2 col-xs-1 transDivStyle">
+				</div>
+				<div class="col-lg-4 col-md-4 col-sm-8 col-xs-10 inputDivStyle">
+					<div class="row">
+						<button id="bttnLogFiles" type="" class="calcButton btn btn-primary" value="bttnLogFiles">Log Files Imported</button>
+						<form id="" action="" method="post">
+						</form>
+					</div>
+					<div class="row">
+						<button id="bttnReports" type="" class="calcButton btn btn-primary" value="bttnLoggedData">Reports</button>
+						<form id="" action="" method="post">
+						</form>
+					</div>
+					<hr/>
+					<div class="row">
+						<br/>
+						<br/>
+					</div>
+				</div>
+		</div>
+        <!--Footer-->
+        <!-- <footer class="container"> -->
+        <div class="text-center navbar navbar-fixed-bottom" id='footer'>
+            <div class="container-fluid">
+                <br/>
+                <span id='copyright'>© 2020 Copyright by Rich Budek all rights reserved</span>
+            </div>
+        </div>
+        <!-- </footer> -->
+
+		<!-- Modal about -->
+		<div id="modal-about" class="modal">
+			<div class="modal-content">
+				<h3>Welcome</h3>
+				<div class="divider"></div>
+				<h4>
+					<br/>
+					<br/>This is a website designed by Rich Budek for doing batched uploading of a network of devices
+					and their data logging file.  A separate PC based application does the uploading using POST commands.
+					The calls are API calls to this app.  The HTML pages here are for the reports. 
+					<br/>
+					<br/>
+					<br/> Rich Budek  rb@RichBudek.com
+					<br/>
+				</h4>
+				<div style="padding: 20px 0px 10px 0px;"  class="divider">
+					<button id="close-about" type="button" class="btn btn-primary closeButton" data-dismiss="modal">Close</button>
+					<button id="btn-exit" type="button" class="btn btn-primary exitButton" data-dismiss="modal">&nbspExit&nbsp</button>
+					<br/><br/>
+				</div>		
+			</div>
+		</div>
+
+		<!-- Modal tech -->
+		<div id="modal-tech" class="modal">
+			<div class="modal-content">
+				<h3>Technical Information</h3>
+				<div class="divider"></div>
+				<h4>
+					<br/>Rich Budek designed website. Front end, backend, all API calls, and all mySQL 
+					commands are done by Rich Budek.
+					<br/>
+					<br/>This is a website demonstrating the use of a backend API for device data logging.
+					<br/>
+					<br/> The original system was a networked system of devices using static IP addresses. An
+					app collects all the data and stores it into a data logging file.  The app polls all of the 
+					devices in 1 minute intervals and then records their status into a log file.
+					Another PC app written in Visual C# is used to upload this data to this backend.  However,
+					instead of uploading the data as thousands of lines of log data the app first finds all of
+					changes that happened and then creates "events". Events store the start and end times
+					for all the changes that occured.  It is this events file that is uploaded thru an API call.
+					The API calls are all done in a Node JS backend.  
+					<br/>
+					<br/>The forms do API calls to my own backend server.  In addition, to go forward to the 
+					next pages, a post path is done to prevent the user from bookmarking the individual pages.
+					This is done so that in the future, some of the pages can be moved to password protected ones
+					with little effort.  
+					<br/>
+					<br/>
+					<br/> Rich Budek  rb@RichBudek.com
+					<br/>
+				</h4>
+				<div style="padding: 20px 0px 10px 0px;"  class="divider">
+					<button id="close-tech" type="button" class="btn btn-primary closeButton" data-dismiss="modal">Close</button>
+					<button id="btn-exit" type="button" class="btn btn-primary exitButton" data-dismiss="modal">&nbspExit&nbsp</button>
+					<br/><br/>
+				</div>		
+			</div>
+		</div>
+
+		<script>
+
+		var closeModals = function() {
+			var modAbout = $("#modal-about");
+			$(modAbout).css("display", "none");		
+
+			var modTech = $("#modal-tech");
+			$(modAbout).css("display", "none");		
+			window.location.reload(false);
+		};
+
+  	    $(document).ready(function () {
+		  //document is ready, so move the incoming data over
+          //closeModals();
+
+
+    	  //$(document.body).on("click", "#close-about", closeModals() );
+		  $('#close-about').on('click', function(event) {
+			  event.preventDefault();
+			  closeModals();
+		  });
+
+		  $('#close-tech').on('click', function(event) {
+			  event.preventDefault();
+			  closeModals();
+		  });
+
+		  $('#btn-about').on('click', function (event) {
+			  event.preventDefault();
+			  var modAbout = $("#modal-about");
+			  $(modAbout).css("display", "block");
+		  });
+
+		  $('#btn-tech').on('click', function (event) {
+			  event.preventDefault();
+			  var modAbout = $("#modal-tech");
+			  $(modAbout).css("display", "block");
+		  });
+
+		  $('#btn-login').on('click', function (event) {
+			  event.preventDefault();
+			  var modAbout = $("#modal-about");
+			  $(modAbout).css("display", "block");
+		  });
+
+		  $('#btn-exit').on('click', function (event) {
+			  event.preventDefault();
+			  window.location.href = "http://www.msn.com";
+		  });
+
+
+		  $('#bttnLogFiles').on('click', function (event) {
+			  event.preventDefault();
+			  console.log("hit Log Files Button")
+			  //$("#calc-oval-form").submit();
+			  window.location.href = '/reports/logfiles';
+		  });
+
+		  $('#bttnReports').on('click', function (event) {
+			  event.preventDefault();
+			  console.log("hit Log Files Button")
+			  //$("#calc-oval-form").submit();
+			  window.location.href = '/reports';
+		  });
+
+		  $('#bttnCheckUpload').on('click', function (event) {
+			  //this was a button that allowed the testing of the api/logfile
+			  //route
+			  event.preventDefault();
+			  console.log("check upload button")
+			  //$("#calc-oval-form").submit();
+			  var url = "https://devnetlogger.herokuapp.com/api/logfile";   //AWS variable
+			  var _fileName = $('#_fileName').val();  //get JQuery data from page
+        			$.post(url, {
+            			fileName: _fileName  //put all post data into JSON obj
+        			}, function (data, success) {
+            			window.location.href = "/";
+        			});
+		  });
+
+    		$(document.body).on("submit", "#login-form", function (event) {
+        		event.preventDefault();
+        		var url = $(this).attr("action");
+				var _loginName = $('#_loginName').val();
+				var _password = $('#_password').val();
+        			$.post(url, {
+            			loginName: _loginName,
+            			password: _password
+        			}, function (data, success) {
+						//need to move submit button outside of form
+						//can not redirect inside of a $.post command
+            			window.location.href = data.url;
+        			});
+    		});  //end of post
+  	    });
+		</script>
+	</body>
+
+</html>

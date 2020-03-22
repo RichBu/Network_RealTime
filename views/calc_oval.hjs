@@ -1,0 +1,294 @@
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>Oval Calculator</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<!--  Designed by Rich Budek @  www.RichBudek.com -->
+		<!--  all rights reserved by Rich Budek -->
+		<meta name="description" content="Oval Calculator">
+		<meta name="author" content="Rich Budek">
+		<meta name="author_website" content="www.RichBudek.com">
+		<meta name="copyright" content="Rich Budek at www.RichBudek.com all rights reserved">
+		<meta name='design package' content="Rich Budek crooked little fingers">
+        <!--    -->
+
+        <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.3.0/handlebars.js"></script>
+
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
+           crossorigin="anonymous">
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r"
+            crossorigin="anonymous">
+
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+          crossorigin="anonymous"></script>
+
+		<link rel='stylesheet' type='text/css' href='/css/calc_oval.css'>
+	</head>
+
+	<body>
+        <noscript>
+          You need to enable JavaScript to run this app.
+        </noscript>
+        <header class="container text-center">
+            <div class="row" style="padding: 20px 0px 0px 0px;" >
+				<!--Site Logo-->
+                <div class="col-xs-4">
+                    <!-- 
+						<a href='/'><img src="/images/genielogo.png" alt='TableTop Genie Logo' id='pageLogo' class='img img-thumbnail'></a>
+					-->	
+                </div>
+                <div class="col-xs-4">
+                    <h1>Oval Calculator</h1>
+                </div>
+                <div class="col-xs-4">
+  			      <button id="btn-about" type="button" class="btn btn-primary aboutButton" >About</button>
+                </div>
+            </div>
+			<hr/>
+        </header>
+		<div class="backgroundIndexStyle">
+		</div>
+		<div style="padding: 40px 0px 40px 0px;">
+  				<div class="col-lg-2 col-md-2 col-sm-2 col-xs-1 transDivStyle">
+				</div>
+				<div class="col-lg-6 col-md-6 col-sm-8 col-xs-10 inputDivStyle">
+					<div class="row">
+						<form id="calc-form" role="form" action="/calcoval/do-calc-oval" method="post">
+							<input type="text" name="rollDiam" id='rollDiam' class="input2" placeholder="cylinder (roll) diameter">	
+							<button id="btn-help1" type="button" class="helpInputButton btn btn-primary" value="help 1">?</button>
+							<input type="text" name="cavityDiam" id='cavityDiam' class="input2" placeholder="X direction dimension (cavity diameter)">	
+							<button id="btn-help2" type="button" class="helpInputButton btn btn-primary" value="help 3">?</button>
+							<input type="text" name="cavityDepth" id='cavityDepth' class="input2" placeholder="depth of feature (cavity depth)">	
+							<button id="btn-help3" type="button" class="helpInputButton btn btn-primary" value="help 3">?</button>
+						</form>
+					</div>
+					<div class="row">
+						<button id="btn-docalcs" type="button" class="calcButton btn btn-primary" value="Do Calculations">Do Calculations</button>
+					</div>
+				</div>
+		</div>
+        <!--Footer-->
+        <!-- <footer class="container"> -->
+        <div class="text-center navbar navbar-fixed-bottom" id='footer'>
+            <div class="container-fluid">
+                <br/>
+                <span id='copyright'>© 2020 Copyright by Rich Budek all rights reserved</span>
+            </div>
+        </div>
+        <!-- </footer> -->
+
+		<!-- Modal about about -->
+		<div id="modal-about" class="modal">
+			<div class="modal-content">
+				<h3>Oval Calculator</h3>
+				<div class="divider"></div>
+				<h4>
+					<br/>When machining on circular cylinder, the engineer draws the feature to be
+					machined in the "flat" X-Y plane.  Then, when sending the CNC program to the 
+					CNC machine to be machined, the machine translates all of the Y coordinates
+					to the proper A or rotary axis movements.  There is a problem with this 
+					translation in that all of the Y transformations are only accurate for one 
+					set of conditions.  This is most visible when machining round features. The 
+					round features come out as oval shaped.
+					<br/>
+					<br/>This calculator does the calculations for you so that you can adjust your
+					CAD model to create the proper dimensions.  Simply enter the cylinder diameter
+					you are machining on, the depth of your feature, and then the dimension in the
+					X direction that you want to machine in the Y direction.
+					<br/>
+					<br/>If you are machining a round feature, then the X direction dimension should 
+					be your desired diameter.
+					<br/>
+					<br/>Engineering calculations developed by Rich Budek.  No compensation is done
+					yet for the taper of the tool (it's being developed), therefore, use these calculations 
+					as a guide.
+					<br/>
+					<br/>
+				</h4>
+				<div style="padding: 20px 0px 10px 0px;"  class="divider">
+					<button id="close-about" type="button" class="btn btn-primary closeButton" data-dismiss="modal">Close</button>
+					<button id="btn-exit" type="button" class="btn btn-primary exitButton" data-dismiss="modal">&nbspExit&nbsp</button>
+					<br/><br/>
+				</div>
+				
+				</div>
+			</div>
+		</div>
+
+
+		<!-- Modal help1 roll diameter -->
+		<div id="modal-help1" class="modal">
+			<div class="modal-content">
+				<h3>Cylinder Diameter</h3>
+				<div class="divider"></div>
+				<h4>
+					<br/>Cylinder diameter is the diameter of the cylinder that you are machining
+					on.  Sometimes called the "roll diameter".  You can use any units you want like
+					inches, centimeters, etc.  As long as you use the same units for ALL the inputs.
+					<br/>
+					<br/>
+					<img src="/images/Oval_01.png" height="199" width="573">
+					<br/>
+					<br/>
+				</h4>
+				<div style="padding: 20px 0px 10px 0px;"  class="divider">
+					<button id="btn-close-help1" type="button" class="btn btn-primary closeButton close-help" data-dismiss="modal">Close</button>
+					<button id="btn-exit-help1" type="button" class="btn btn-primary exitButton exit-help" data-dismiss="modal">&nbspExit&nbsp</button>
+					<br/><br/>
+				</div>
+				
+				</div>
+			</div>
+		</div>
+
+		<!-- Modal help2 X direction  -->
+		<div id="modal-help2" class="modal">
+			<div class="modal-content">
+				<h3>X Direction Dimension</h3>
+				<div class="divider"></div>
+				<h4>
+					<br/>X direction dimension is the measurement in the X direction.  The X
+					direction is in the direction of the axis, in other words, the horizontal
+					direction of the cylinder.
+					<br/>
+					<br/>If you are machining a circle, then enter the diameter of your design.
+					You can call this the "theoretical" diameter.  The diameter in the Y direction
+					will have to be lengthened and the calculations will tell you what they are.
+					<br/>
+					<br/>
+					<img src="/images/Oval_02.png" height="199" width="573">
+					<br/>
+					<br/>
+				</h4>
+				<div style="padding: 20px 0px 10px 0px;"  class="divider">
+					<button id="btn-close-help2" type="button" class="btn btn-primary closeButton close-help" data-dismiss="modal">Close</button>
+					<button id="btn-exit-help2" type="button" class="btn btn-primary exitButton exit-help" data-dismiss="modal">&nbspExit&nbsp</button>
+					<br/><br/>
+				</div>
+				
+				</div>
+			</div>
+		</div>
+
+		<!-- Modal help3 depth of feature -->
+		<div id="modal-help3" class="modal">
+			<div class="modal-content">
+				<h3>Depth of Feature</h3>
+				<div class="divider"></div>
+				<h4>
+					<br/>Depth of the feature is how deep you are machining your feature.
+					The depth determines how distorted your feature will be. Enter the depth
+					using the same units you did for your cylinder diameter and X direction 
+					diameter.
+					<br/>
+					<br/>
+					<img src="/images/Oval_06.png" height="199" width="573">
+					<br/>
+					<br/>
+				</h4>
+				<div style="padding: 20px 0px 10px 0px;"  class="divider">
+					<button id="btn-close-help3" type="button" class="btn btn-primary closeButton close-help" data-dismiss="modal">Close</button>
+					<button id="btn-exit-help3" type="button" class="btn btn-primary exitButton exit-help" data-dismiss="modal">&nbspExit&nbsp</button>
+					<br/><br/>
+				</div>
+				
+				</div>
+			</div>
+		</div>
+
+		<script>
+
+		var closeModals = function() {
+			var modAbout = $("#modal-about");
+			$(modAbout).css("display", "none");		
+			var modHelp1 = $("#modal-help1");
+			$(modHelp1).css("display", "none");		
+			var modHelp2 = $("#modal-help2");
+			$(modHelp2).css("display", "none");		
+			var modHelp3 = $("#modal-help3");
+			$(modHelp3).css("display", "none");	
+			//used to reload the page, don't want right now
+			//because it clears all of the entries	
+			//window.location.reload(false);
+		};
+
+  	    $(document).ready(function () {
+		  //document is ready, so move the incoming data over
+          //closeModals();
+			console.log("document is ready");
+
+    	  //$(document.body).on("click", "#close-about", closeModals() );
+		  $('#close-about').on('click', function(event) {
+			  event.preventDefault();
+			  closeModals();
+		  });
+
+		  $('#btn-about').on('click', function (event) {
+			  event.preventDefault();
+			  var modAbout = $("#modal-about");
+			  $(modAbout).css("display", "block");
+		  });
+
+
+		  $('#btn-exit').on('click', function (event) {
+			  event.preventDefault();
+			  window.location.href = "http://www.msn.com";
+		  });
+
+		  //help buttons (refactor as a generic help with attr)
+		  $('#btn-help1').on('click', function (event) {
+			  event.preventDefault();
+			  var modHelp1 = $("#modal-help1");
+			  $(modHelp1).css("display", "block");
+		  });
+
+		  $('#btn-help2').on('click', function (event) {
+			  event.preventDefault();
+			  var modHelp2 = $("#modal-help2");
+			  $(modHelp2).css("display", "block");
+		  });
+
+		  $('#btn-help3').on('click', function (event) {
+			  event.preventDefault();
+			  var modHelp3 = $("#modal-help3");
+			  $(modHelp3).css("display", "block");
+		  });
+
+		  //close the help modals by using a class
+		  $('.close-help').on('click', function(event) {
+			  event.preventDefault();
+			  closeModals();
+		  });
+
+		  $('.exit-help').on('click', function (event) {
+			  event.preventDefault();
+			  closeModals();
+			  window.location.href = "http://www.msn.com";
+		  });
+
+
+		  $('#btn-docalcs').on('click', function (event) {
+    		//$(document.body).on("submit", "#login-form", function (event) {
+        		event.preventDefault();
+				console.log("hit the button");
+        		var url = $(this).attr("action");
+
+				var _rollDiam = $('#rollDiam').val();
+				var _cavityDiam = $('#cavityDiam').val();
+				var _cavityDepth = $('#cavityDepth').val();
+				//do as a form submit instead of a post
+				//this allows the return of a render
+				$('#calc-form').submit();
+    		});  //end of click
+  	    });
+
+		</script>
+	</body>
+
+</html>
