@@ -1,7 +1,3 @@
-
-
-//for network logging 
-
 DROP DATABASE IF EXISTS h1fnnkvamtvh9i22;
 CREATE DATABASE h1fnnkvamtvh9i22;
 USE h1fnnkvamtvh9i22;

@@ -1,22 +1,27 @@
 
 
-USE lb4a4vdbieztvy2i;
+USE h1fnnkvamtvh9i22;
 
-INSERT INTO  files_log (
-    time_of_upload_str, filename_str 
-    ) VALUES (
-        "2020-02-25  07:36 PM",
-        "C:\\Data\\01012020.log");
 
-INSERT INTO  files_log (
-    time_of_upload_str, filename_str 
-    ) VALUES (
-        "2020-02-25  07:38 PM",
-        "C:\\Data\\01022020.log");
 
-INSERT INTO  files_log (
-    time_of_upload_str, filename_str 
+INSERT INTO machine_data_stat (
+    mach_num, mach_descrip, mach_location, image_to_use,
+    random_wt_running, random_wt_fault_gen, random_wt_fault_dur,
+    mach_status, fault_time, fault_time_unix, fault_code, fault_descrip,
+    initiated_by
     ) VALUES (
-        "2020-02-25  07:38 PM",
-        "C:\Data\\01032020.log");
+        "1",
+        "Haas VMC #01",
+        "Production",
+        "icon_01.jpg",
+        "1.0",
+        "1.0",
+        "1.0",
+        "0",
+        "2020-01-01 07:00:00",
+        "0",
+        "0",
+        " ",
+        "0"
+    );
 
