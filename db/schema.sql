@@ -36,21 +36,19 @@ CREATE TABLE user_log (
 
 
 CREATE TABLE rt_data (
-    mach_num INT,
-    mach_descrip VARCHAR(20),
-    mach_status INT,
-    event_time VARCHAR(20),
-    event_time_unix VARCHAR(15),
+    mach_num VARCHAR(2),
+    mach_stat_code VARCHAR(20),
     fault_code INT,
     fault_descrip VARCHAR(20),
-    initiated_by INT
+    PRIMARY KEY (mach_num)
 );
 
 
 CREATE TABLE fault_codes (
     fault_code INT,
     fault_descrip VARCHAR(20),
-    status_change INT    
+    status_change INT,    
+    PRIMARY KEY (fault_code)
 );
 
 
@@ -69,24 +67,26 @@ CREATE TABLE fault_log (
 
 
 CREATE TABLE machine_data_stat (
-    mach_num INT,
+    mach_num VARCHAR(2),
     mach_descrip VARCHAR(20),
     mach_location VARCHAR(20),
     image_to_use VARCHAR(128),
-    random_wt_running FLOAT,
-    random_wt_fault_gen FLOAT,
-    random_wt_fault_dur FLOAT,
-    mach_status INT,
+    random_wt_running INT,
+    random_wt_fault_gen INT
+    random_wt_fault_dur INT,
+    mach_stat_code VARCHAR(20),
     fault_time VARCHAR(20),
-    fault_time_unix VARCHAR(15),
+    fault_time_unix VARCHAR(20),
     fault_code INT,
     fault_descrip VARCHAR(20),
-    initiated_by INT
+    initiated_by INT,
+    PRIMARY KEY (mach_num)
 );
 
 
 CREATE TABLE phone_log (
     phone_log_id INT NOT NULL AUTO_INCREMENT,
+    name VARCHAR(20),
     phone_log_time VARCHAR(20),
     phone_log_time_unix VARCHAR(15),
     ip_addr VARCHAR(16),

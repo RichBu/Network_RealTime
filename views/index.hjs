@@ -2,12 +2,12 @@
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<title>Device Data Logger</title>
+		<title>Production Monitor Real Time</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 
 		<!--  Designed by Rich Budek @  www.RichBudek.com -->
 		<!--  all rights reserved by Rich Budek -->
-		<meta name="description" content="Device Data Logger">
+		<meta name="description" content="Production Monitor Real Time">
 		<meta name="author" content="Rich Budek">
 		<meta name="author_website" content="www.RichBudek.com">
 		<meta name="copyright" content="Rich Budek at www.RichBudek.com all rights reserved">
@@ -52,7 +52,7 @@
                 </div>
             </div>
             <div class="row" style="padding: 0px 0px 0px 0px;" >
-                    <h1>Device Data Logger</h1>
+                    <h1>Production Monitoring Realtime</h1>
                     <h3>by Rich Budek</h3>
 			</div>
 			<hr/>
@@ -64,7 +64,7 @@
 				</div>
 				<div class="col-lg-4 col-md-4 col-sm-8 col-xs-10 inputDivStyle">
 					<div class="row">
-						<button id="bttnLogFiles" type="" class="calcButton btn btn-primary" value="bttnLogFiles">Log Files Imported</button>
+						<button id="bttnViewSimul" type="" class="calcButton btn btn-primary" value="bttnViewSimul">Simulated Real Time Data</button>
 						<form id="" action="" method="post">
 						</form>
 					</div>
@@ -97,9 +97,20 @@
 				<div class="divider"></div>
 				<h4>
 					<br/>
-					<br/>This is a website designed by Rich Budek for doing batched uploading of a network of devices
-					and their data logging file.  A separate PC based application does the uploading using POST commands.
-					The calls are API calls to this app.  The HTML pages here are for the reports. 
+					<br/>This is a modifed website of a full blown production monitoring website. 
+					The full web site uses IIoT and PLC's networked together to monitor a full production
+					plant. Each machine is monitored for how it is operating and when a fault occurs, 
+					it is logged in a database as well as triggering a real time viewer that can be
+					viewed anywhere in the world. 
+					<br/>
+					<br/>In addition the user can register their phone to receive text updates of any
+					changes in status that occur.
+					<br/>
+					<br/>This demonstrates how easy it is as a full stack web developer to gather real time
+					production without using a pre-packaged "system". Not only is there a significant cost 
+					savings, but the system can be upgraded by any competent full stack developer. On top of
+					that what can be accomplished is virtually unlimited as the only limit is the creativity
+					and talent of the full stack developer.
 					<br/>
 					<br/>
 					<br/> Rich Budek  rb@RichBudek.com
@@ -122,16 +133,14 @@
 					<br/>Rich Budek designed website. Front end, backend, all API calls, and all mySQL 
 					commands are done by Rich Budek.
 					<br/>
-					<br/>This is a website demonstrating the use of a backend API for device data logging.
+					<br/>This is a website demonstrating the use of a backend API for real time monitoring.
 					<br/>
-					<br/> The original system was a networked system of devices using static IP addresses. An
-					app collects all the data and stores it into a data logging file.  The app polls all of the 
-					devices in 1 minute intervals and then records their status into a log file.
-					Another PC app written in Visual C# is used to upload this data to this backend.  However,
-					instead of uploading the data as thousands of lines of log data the app first finds all of
-					changes that happened and then creates "events". Events store the start and end times
-					for all the changes that occured.  It is this events file that is uploaded thru an API call.
-					The API calls are all done in a Node JS backend.  
+					<br/>The system utilizes a whole network of IIoT and PLC's networked together to provide
+					real time production data.  This allows anyone to view the current state of production.
+					The data is captured and stored in a backend mySQL database.  The full system utilizes
+					Googles Firebase to instantly update the real-time data.  But this requires exposing
+					API keys which for a publically viewable application would not make sense. Instead, for this
+					version a timer in the front end continuously polls the backend to get updates. The API calls are all done in a Node JS backend.  
 					<br/>
 					<br/>The forms do API calls to my own backend server.  In addition, to go forward to the 
 					next pages, a post path is done to prevent the user from bookmarking the individual pages.
@@ -201,9 +210,9 @@
 		  });
 
 
-		  $('#bttnLogFiles').on('click', function (event) {
+		  $('#bttnViewSimul').on('click', function (event) {
 			  event.preventDefault();
-			  console.log("hit Log Files Button")
+			  console.log("hit View Simulation Button")
 			  //$("#calc-oval-form").submit();
 			  window.location.href = '/reports/logfiles';
 		  });
