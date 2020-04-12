@@ -502,4 +502,154 @@ router.get('/monitor_read', function(req, res, next) {
 
 
 
+
+router.get('/monitor_write', function(req, res, next) {
+    //allows manaul forcing of the data
+
+    console.log('monitor write');
+    let _action_done;
+    let ip;
+    let clientIP;
+    let userLoggedIn = true;
+
+    let dataOutput = [];
+
+    //normally would check if logged in, but now just do it all the time
+    //userLoggedIn = true;
+    let skipLogin = true;
+
+    if (req.session.logged_in == true) {
+        userLoggedIn = true;
+    } else {
+        req.session.loginName = " ";
+        req.session.password = " ";
+        req.session.fullName = " ";
+    };
+    if ((userLoggedIn == true) || (skipLogin == true)) {
+        //logged in so just write to user db
+
+        let userLogRec = new userLogRecStoreType(
+            moment().format("YYYY-MM-DD  HH:mm a"),
+            req.session.clientIP,
+            req.session.loginName,
+            req.session.password,
+            req.session.fullName,
+            'monitor write'
+        );
+
+        let query = "INSERT INTO user_log (time_str, ip_addr, loginName, password, fullName, action_done) VALUES (?, ?, ?, ?, ?, ? )";
+        connection.query(query, [
+            userLogRec.timeStr,
+            userLogRec.clientIP,
+            userLogRec.loginName,
+            userLogRec.password,
+            userLogRec.fullName,
+            userLogRec.action_done
+        ], function(err, response) {
+            //what to do after the log has been written
+            console.log('wrote to ip log-logged in');
+
+            //res.sendStatus(200).end();  
+            res.render('monitor_write', { machStatObj: dataOutput });
+        });
+    } else {
+        //not logged in so save the ip address
+        _action_done = "root-not logged in";
+        ip = req.clientIPaddr;
+        clientIP = requestIp.getClientIp(req);
+        console.log('not logged in');
+        console.log(ip);
+        // const ip = req.getClientIp;
+        if (ip == '::1') {
+            console.log('local ip');
+            req.session.clientIP = 'local';
+            let ipRec = new ipRecStoreType(
+                moment().format("YYYY-MM-DD  HH:mm a"),
+                'local',
+                'local',
+                ' ',
+                ' ',
+                ' ',
+                ' ',
+                ' ',
+                ' ',
+                ' ',
+                ' ',
+                _action_done
+            );
+            var query = "INSERT INTO ip_log (time_str, ip_addr, ip_query, as_field, country, countryCode, city, region, regionName, zip, timezone, action_done) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
+            connection.query(query, [
+                ipRec.timeStr,
+                ipRec.clientIP,
+                ipRec.queryIP,
+                ipRec.as,
+                ipRec.country,
+                ipRec.countryCode,
+                ipRec.city,
+                ipRec.region,
+                ipRec.regionName,
+                ipRec.zip,
+                ipRec.timezone,
+                ipRec.action_done
+            ], function(err, response) {
+                //what to do after the log has been written
+                console.log('wrote to ip local');
+
+                //res.sendStatus(200).end();  
+                res.render('monitor_write', {
+                    base_url: process.env.BASE_URL
+                });
+            });
+        } else {
+            //let ip = req.clientIPaddr;
+            //let clientIP = requestIp.getClientIp(req);
+            req.session.clientIP = clientIP;
+            console.log('before iplocation');
+            iplocation(ip)
+                .then(res2 => {
+                    console.log('after iplocation');
+                    _action_done = 'root-not logged in';
+                    let ipRec = new ipRecStoreType(
+                        moment().format("YYYY-MM-DD  HH:mm a"),
+                        clientIP,
+                        res2.query,
+                        res2.as,
+                        res2.country,
+                        res2.countryCode,
+                        res2.city,
+                        res2.region,
+                        res2.regionName,
+                        res2.zip,
+                        res2.timezone,
+                        _action_done
+                    );
+                    console.log('before insert query');
+                    var query = "INSERT INTO ip_log (time_str, ip_addr, ip_query, as_field, country, countryCode, city, region, regionName, zip, timezone, action_done) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
+                    connection.query(query, [
+                        ipRec.timeStr,
+                        ipRec.clientIP,
+                        ipRec.queryIP,
+                        ipRec.as,
+                        ipRec.country,
+                        ipRec.countryCode,
+                        ipRec.city,
+                        ipRec.region,
+                        ipRec.regionName,
+                        ipRec.zip,
+                        ipRec.timezone,
+                        ipRec.action_done
+                    ], function(err, response) {
+                        //what to do after the log has been written
+                        res.render('index', {
+                            base_url: process.env.BASE_URL
+                        });
+                        //res.sendStatus(200).end();
+                    });
+                })
+        };
+    };
+}); //monitor_write path
+
+
+
 module.exports = router;

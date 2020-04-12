@@ -2,12 +2,12 @@
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<title>Production Monitoring RT</title>
+		<title>WCO Production Monitor</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 
 		<!--  Designed by Rich Budek @  www.RichBudek.com -->
 		<!--  all rights reserved by Rich Budek -->
-		<meta name="description" content="Production Monitoring RT">
+		<meta name="description" content="WCO Production Monitor">
 		<meta name="author" content="Rich Budek">
 		<meta name="author_website" content="www.RichBudek.com">
 		<meta name="copyright" content="Rich Budek at www.RichBudek.com all rights reserved">
@@ -38,14 +38,16 @@
         <header class="container text-center">
             <div class="row" style="padding: 20px 0px 0px 0px;" >
 				<!--Site Logo-->
-                <div class="col-sm-1 ol-xs-2">
-  			      	<button id="btn-back" type="button" class="btn btn-primary leftButton" >&nbsp;&nbsp;&nbsp;&#60;&nbsp;&nbsp;&nbsp;</button>
+                <div class="col-xs-4">
+                    <!-- 
+						<a href='/'><img src="/images/genielogo.png" alt='TableTop Genie Logo' id='pageLogo' class='img img-thumbnail'></a>
+					-->	
                 </div>
-                <div class="col-sm-10 col-xs-7">
-                    <h2>Read RT data</h2>
+                <div class="col-xs-4">
+                    <h1>Write to RT data</h1>
                 </div>
-                <div class="col-sm-1 col-xs-2">
-  			      <button id="btn-about" type="button" class="btn btn-primary aboutButton" >Help</button>
+                <div class="col-xs-4">
+  			      <button id="btn-about" type="button" class="btn btn-primary aboutButton" >About</button>
                 </div>
             </div>
 			<hr/>
@@ -53,41 +55,41 @@
 		<div class="backgroundIndexStyle">
 		</div>
 		<div style="padding: 40px 0px 40px 0px;">
-  			<div class="col-lg-1 col-md-2 col-sm-2 col-xs-1 transDivStyle">
+  			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-1 transDivStyle">
 			</div>
-			<div class="col-lg-10 col-md-8 col-sm-8 col-xs-10 inputDivStyle">
+			<div class="col-lg-6 col-md-6 col-sm-8 col-xs-10 inputDivStyle">
 				<div class="row">
-					<button id="btn-startRead" class="calcButton btn btn-primary" >Start Reading</button>	
+					<form id="monitor-form" role="form" action="/api/update-rt-data" method="post">
+					<input type="text" name="M1" id='M1' class="input3" placeholder="M1" value="00"><h3>&nbsp &nbsp M1</h3><br/>
+					<input type="text" name="M2" id='M2' class="input3" placeholder="M2" value="00"><h3>&nbsp &nbsp M2</h3><br/>
+					<input type="text" name="M3" id='M3' class="input3" placeholder="M3" value="00"><h3>&nbsp &nbsp M3</h3><br/>
+					<input type="text" name="M4" id='M3' class="input3" placeholder="M4" value="00"><h3>&nbsp &nbsp M4</h3><br/>
+					<input type="text" name="M5" id='M5' class="input3" placeholder="M5" value="00"><h3>&nbsp &nbsp M5</h3><br/>
+					<input type="text" name="M6" id='M6' class="input3" placeholder="M6" value="00"><h3>&nbsp &nbsp M6</h3><br/>
+					<input type="text" name="M7" id='M7' class="input3" placeholder="M7" value="00"><h3>&nbsp &nbsp M7</h3><br/>
+					<input type="text" name="M8" id='M8' class="input3" placeholder="M8" value="00"><h3>&nbsp &nbsp M8</h3><br/>
+					<input type="text" name="M9" id='M9' class="input3" placeholder="M9" value="00"><h3>&nbsp &nbsp M9</h3><br/>
+					<input type="text" name="M10" id='M10' class="input3" placeholder="M10" value="00"><h3>&nbsp &nbsp M10</h3><br/>
 					<br/>
-					<button id="btn-stopRead" class="calcButton btn btn-primary" >Stop Reading</button>	
+					<button id="btn-sendData" type="submit" class="calcButton btn btn-primary" value="Write RT Data">Write RT Data</button>
+					</form>
 					<br/>
 					<br/>
-					<br/><h3>&nbsp</h3>
+					<button id="btn-readData" class="calcButton btn btn-primary" value="Read RT Data">Read RT Data</button>	
 				</div>				
 				<div class="row">
 				</div>
 				<!-- Status Output -->
-				<div id="outputDiv" class="row">
-					{{#machStatObj}}
-					<div id="M{{mach_num}}" class="statusOff machPic" data-pic="{{mach_num}}">
-						<h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{mach_num}}</h3>
-						<img src="/images/Blank_01.jpg" class="imageBlank">
-						<img src="/images/{{image_to_use}}" class="imageCNCsmall">
-						<h5>&nbsp;&nbsp;{{mach_location}}</h5>
-					</div>
-					{{/machStatObj}}
-				</div>	
-				<!-- Machine Data Output -->
-				<div id="machineDiv" class="row">
-					<h3>M01
-						<br/>
-						Haas Lathe
-						<br/>
-						Production
-						<br/>
-					</h3>
-					<img src="/images/Haas_01.jpg" class="imageCNCbig">
-					<h3></h3>
+				<div class="row">
+					<div id="M01" class="statusOff"><h3>&nbsp&nbsp&nbsp&nbsp&nbsp01</h3></div>
+					<div id="M02" class="statusOn"><h3>&nbsp&nbsp&nbsp&nbsp&nbsp02</h3></div>
+					<div id="M03" class="statusOn"><h3>&nbsp&nbsp&nbsp&nbsp&nbsp03</h3></div>
+					<div id="M04" class="statusRun"><h3>&nbsp&nbsp&nbsp&nbsp&nbsp04</h3></div>
+					<div id="M05" class="statusOff"><h3>&nbsp&nbsp&nbsp&nbsp&nbsp05</h3></div>
+					<div id="M06" class="statusOff"><h3>&nbsp&nbsp&nbsp&nbsp&nbsp06</h3></div>
+					<div id="M07" class="statusOff"><h3>&nbsp&nbsp&nbsp&nbsp&nbsp07</h3></div>
+					<div id="M08" class="statusOff"><h3>&nbsp&nbsp&nbsp&nbsp&nbsp08</h3></div>
+					<div id="M09" class="statusOff"><h3>&nbsp&nbsp&nbsp&nbsp&nbsp09</h3></div>
 				</div>	
 				<div class="row">
 					<br/>
@@ -98,15 +100,10 @@
 					<div id="diffUpdate"></div>
 				</div>	
 				<div class="row">
-					<div id="tmrUpdate"></div>
-				</div>	
-				<div class="row">
 					<br/>
 					<br/>
 					<h3>&nbsp;<br/></h3>
 				</div>	
-			</div>
-  			<div class="col-lg-1 col-md-2 col-sm-2 col-xs-1 transDivStyle">
 			</div>
 		</div>
         <!--Footer-->
@@ -122,19 +119,13 @@
 		<!-- Modal about about -->
 		<div id="modal-about" class="modal">
 			<div class="modal-content">
-				<h3>Production Monitoring</h3>
+				<h3>WCO Production Monitoring</h3>
 				<div class="divider"></div>
 				<h4>
-					<br/>This page keeps polling the backend every 10 seconds once you 
-					press the Start Reading button.  It will keep reading until you 
-					press the Stop Reading button.  To conserve battery power and data 
-					usage, press the Stop Reading button
-					<br/>
-					<br/>
-					<br/>Legend:
-					<br/>&nbsp;&nbsp;white = off line (no connection)
-					<br/>&nbsp;&nbsp;red = stopped 
-					<br/>&nbsp;&nbsp;green = running and feeding
+					<br/>This screen displays the production machinery real time from anywhere
+					in the world.  The purpose is that during social distancing guidelines the 
+					production workers on monitored equipment can step away and still keep the 
+					production lines running.
 					<br/>
 					<br/>
 					<br/>Software developed by Rich Budek by reusing code from other projects 
@@ -154,11 +145,6 @@
 
 
 		<script>
-		var tmrHandle = 0;
-		var tmrEndVal = 6;
-		var tmrCounts = 0;
-		var dispType = 0;    //0=none  1=full table  2=one mach
-		var currMach = 0;    //current machine
 
 		var closeModals = function() {
 			var modAbout = $("#modal-about");
@@ -175,47 +161,6 @@
 		};
 
 
-
-		var tmrClick = function() {
-			tmrCounts = tmrCounts + 1;
-			$("#tmrUpdate").html("<h4>Seconds to refresh: " + (tmrEndVal-tmrCounts) + "</h4>");
-			if (tmrCounts == tmrEndVal) {
-				tmrCounts = 0;
-				readData();
-			};
-		}
-
-
-		var displayDiv = function(divType) {
-			//turn on divs based on value passed in
-			//0=all off  1=all  2=single machine
-			console.log("display " + divType);
-			switch (divType) {
-				case 0: 
-					$('#outputDiv').removeClass('showDiv');
-					$('#outputDiv').addClass('hideDiv');
-					$('#machineDiv').removeClass('showDiv');
-					$('#machineDiv').addClass('hideDiv');
-					dispType = 0;
-					break;
-				case 1:
-					$('#outputDiv').removeClass('hideDiv');
-					$('#outputDiv').addClass('showDiv');
-					$('#machineDiv').removeClass('showDiv');
-					$('#machineDiv').addClass('hideDiv');
-					dispType = 1;
-					break;
-				case 2:
-					$('#outputDiv').removeClass('showDiv');
-					$('#outputDiv').addClass('hideDiv');
-					$('#machineDiv').removeClass('hideDiv');
-					$('#machineDiv').addClass('showDiv');
-					dispType = 2;
-					break;
-			};
-		}
-
-
 		var readData = function() {
 			  var data = "";
 			  var url = "/api/read-rt-data";
@@ -227,17 +172,17 @@
 						//this is the update time
 						if (data[i].mach_num.trim() == "98") {
 							//this is the difference
-							$("#diffUpdate").html("<h4>Hours since upload: " + data[i].mach_stat_code + "</h4>");
+							$("#diffUpdate").html("<h4>Hours since update: " + data[i].mach_stat_code + "</h4>");
 						};
 						if (data[i].mach_num.trim() == "99") {
 							//this is the last update
-							$("#lastUpdate").html("<h4>Last upload: " + data[i].mach_stat_code + "</h4>");
+							$("#lastUpdate").html("<h4>Last updated: " + data[i].mach_stat_code + "</h4>");
 						};
 					} else {
 						//a machine update 
 						var idStr = "#M" + data[i].mach_num.trim();
 						$(idStr).removeClass();
-						var statusStr = "statusOff";
+						var statusStr = "";
 						switch (data[i].mach_stat_code) {
 							case "00":
 						  		statusStr = "statusOff"; 
@@ -259,7 +204,6 @@
 		};  // readData function
 
 
-
   	    $(document).ready(function () {
 		  //document is ready, so move the incoming data over
           //closeModals();
@@ -269,11 +213,6 @@
 		  $('#close-about').on('click', function(event) {
 			  event.preventDefault();
 			  closeModals();
-		  });
-
-		  $('#btn-back').on('click', function (event) {
-			  event.preventDefault();
-			  window.history.back();
 		  });
 
 		  $('#btn-about').on('click', function (event) {
@@ -302,30 +241,17 @@
 		  });
 
 
-		  $('#btn-startRead').on('click', function (event) {
+		  $('#btn-readData').on('click', function (event) {
 			  event.preventDefault();
 			  console.log("clicked read button");
-			  tmrCounts = 0;
-			  displayDiv(1);
-			  tmrHandle = setInterval(tmrClick,1000);  //2000 or 2 secs is about min can do
-			  readData();
+			  setInterval(readData,4000);  //2000 is about shortest can have
+			  //readData();
 		  });
 
-
-		  $('#btn-stopRead').on('click', function (event) {
-			  event.preventDefault();
-			  console.log("clicked pause button");
-			  clearInterval(tmrHandle);
-			  for (var i=0; i<9; i++) {
-				var machNum = i+1;  
-				var idStr = "#M0" + machNum.toString().trim();
-				$(idStr).removeClass();
-				var statusStr = "statusOff";
-				$(idStr).addClass(statusStr);
-				};
-		  });
-
-
+/*  button is on the form now, so don't need as separate
+		  $('#btn-sendData').on('click', function (event) {
+*/			  
+    		//$(document.body).on("submit", "#monitor-form", function (event) {
 			$('#monitor-form').submit(function(event){	
         		event.preventDefault();
 
@@ -334,24 +260,16 @@
 				var url = $(this).attr("action");
 				$.post(url, data, function(data) {
 					console.log("got result");
+					console.log(data);
 				});
+
+				//do as a form submit instead of a post
+				//this allows the return of a render
+				//$('#monitor-form').submit();
+				//don't have to do anything because if post worked, it continues
+				//window.history.back();  //go back to prev page
+				//window.location.href = "/monitor_main";
     		});  //end of click			
-
-
-			$('#machineDiv').on('click', function (event) {
-				event.preventDefault();
-				displayDiv(1);  //disp full table
-			});
-
-
-			$('.machPic').on('click', function (event) {
-				event.preventDefault();
-				currMach = $(this).attr("data-pic");
-				console.log("pic = " + currMach);
-				displayDiv(2);  //disp one machine
-			});
-
-			displayDiv(1); //display all machines
   	    });
 
 		</script>

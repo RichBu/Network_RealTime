@@ -137,7 +137,7 @@ INSERT INTO machine_data_stat (
     ) VALUES (
         "06",
         "Clausing Lathe #01",
-        "Lathe Department",
+        "Lathe Dept.",
         "Lathe_01.jpg",
         "60",
         "5",
@@ -161,7 +161,7 @@ INSERT INTO machine_data_stat (
     ) VALUES (
         "07",
         "Clausing Lathe #02",
-        "Lathe Department",
+        "Lathe Dept.",
         "Lathe_01.jpg",
         "50",
         "4",
@@ -349,6 +349,15 @@ INSERT INTO rt_data (
         " "
     );
 
+INSERT INTO rt_data (
+    mach_num, mach_stat_code, fault_code, fault_descrip
+    ) VALUES (
+        "99",
+        "2020-04-01 03:00:00",
+        "00", 
+        " "
+);
+
 
 
 INSERT INTO fault_codes (
@@ -440,3 +449,6 @@ INSERT INTO fault_codes (
         "lube on",
         2
     );   
+    
+    
+
