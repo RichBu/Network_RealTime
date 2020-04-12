@@ -1,6 +1,5 @@
 
 
-//for network logging 
 
 DROP DATABASE IF EXISTS h1fnnkvamtvh9i22;
 CREATE DATABASE h1fnnkvamtvh9i22;
@@ -46,7 +45,7 @@ CREATE TABLE rt_data (
 
 CREATE TABLE fault_codes (
     fault_code INT,
-    fault_descrip VARCHAR(20),
+    fault_descrip VARCHAR(25),
     status_change INT,    
     PRIMARY KEY (fault_code)
 );
@@ -72,7 +71,7 @@ CREATE TABLE machine_data_stat (
     mach_location VARCHAR(20),
     image_to_use VARCHAR(128),
     random_wt_running INT,
-    random_wt_fault_gen INT
+    random_wt_fault_gen INT,
     random_wt_fault_dur INT,
     mach_stat_code VARCHAR(20),
     fault_time VARCHAR(20),
@@ -80,6 +79,8 @@ CREATE TABLE machine_data_stat (
     fault_code INT,
     fault_descrip VARCHAR(20),
     initiated_by INT,
+    man_ovr INT,
+    man_clock_tics INT,
     PRIMARY KEY (mach_num)
 );
 

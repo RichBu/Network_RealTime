@@ -8,11 +8,11 @@ if (process.env.JAWSDB_URL) {
 } else {
     connection = mysql.createConnection({
         connectionLimit: 20,
-        port:3306,
-        host: 'l9dwvv6j64hlhpul.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
-        user: 'oo9slps47y2jlalu',
-        password: 'cyfg2vos3m7i3izj',
-        database: 'lb4a4vdbieztvy2i'
+        port: 3306,
+        host: 'g3v9lgqa8h5nq05o.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
+        user: 'qdfihl6im7aev8c5',
+        password: 'nl0hwoi9znpbu3z8',
+        database: 'h1fnnkvamtvh9i22'
     });
 };
 
@@ -32,7 +32,7 @@ connection = mysql.createConnection({
 
 
 // Make connection.
-connection.connect(function (err) {
+connection.connect(function(err) {
     if (err) {
         console.error("error connecting: " + err.stack);
         return;

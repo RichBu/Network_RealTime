@@ -214,7 +214,7 @@
 			  event.preventDefault();
 			  console.log("hit View Simulation Button")
 			  //$("#calc-oval-form").submit();
-			  window.location.href = '/reports/logfiles';
+			  window.location.href = '/monitor_read';
 		  });
 
 		  $('#bttnReports').on('click', function (event) {

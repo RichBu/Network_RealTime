@@ -2,8 +2,8 @@
 
 USE h1fnnkvamtvh9i22;
 
-DROP TABLE machine_data_stat;
-
+/*DROP TABLE machine_data_stat;
+*/
 
 
 USE h1fnnkvamtvh9i22;
@@ -13,7 +13,7 @@ INSERT INTO machine_data_stat (
     mach_num, mach_descrip, mach_location, image_to_use,
     random_wt_running, random_wt_fault_gen, random_wt_fault_dur,
     mach_stat_code, fault_time, fault_time_unix, fault_code, fault_descrip,
-    initiated_by
+    initiated_by, man_ovr, man_clock_tics
     ) VALUES (
         "01",
         "Haas VMC #01",
@@ -27,6 +27,8 @@ INSERT INTO machine_data_stat (
         "0",
         "0",
         " ",
+        "0",
+        "0",
         "0"
     );
 
@@ -35,7 +37,7 @@ INSERT INTO machine_data_stat (
     mach_num, mach_descrip, mach_location, image_to_use,
     random_wt_running, random_wt_fault_gen, random_wt_fault_dur,
     mach_stat_code, fault_time, fault_time_unix, fault_code, fault_descrip,
-    initiated_by
+    initiated_by, man_ovr, man_clock_tics
     ) VALUES (
         "02",
         "Haas VMC #02",
@@ -49,6 +51,8 @@ INSERT INTO machine_data_stat (
         "0",
         "0",
         " ",
+        "0",
+        "0",
         "0"
     );
 
@@ -57,7 +61,7 @@ INSERT INTO machine_data_stat (
     mach_num, mach_descrip, mach_location, image_to_use,
     random_wt_running, random_wt_fault_gen, random_wt_fault_dur,
     mach_stat_code, fault_time, fault_time_unix, fault_code, fault_descrip,
-    initiated_by
+    initiated_by, man_ovr, man_clock_tics
     ) VALUES (
         "03",
         "Haas VMC #03",
@@ -71,6 +75,8 @@ INSERT INTO machine_data_stat (
         "0",
         "0",
         " ",
+        "0",
+        "0",
         "0"
     );
 
@@ -79,7 +85,7 @@ INSERT INTO machine_data_stat (
     mach_num, mach_descrip, mach_location, image_to_use,
     random_wt_running, random_wt_fault_gen, random_wt_fault_dur,
     mach_stat_code, fault_time, fault_time_unix, fault_code, fault_descrip,
-    initiated_by
+    initiated_by, man_ovr, man_clock_tics
     ) VALUES (
         "04",
         "Haas VMC #04",
@@ -93,6 +99,8 @@ INSERT INTO machine_data_stat (
         "0",
         "0",
         " ",
+        "0",
+        "0",
         "0"
     );
 
@@ -101,7 +109,7 @@ INSERT INTO machine_data_stat (
     mach_num, mach_descrip, mach_location, image_to_use,
     random_wt_running, random_wt_fault_gen, random_wt_fault_dur,
     mach_stat_code, fault_time, fault_time_unix, fault_code, fault_descrip,
-    initiated_by
+    initiated_by, man_ovr, man_clock_tics
     ) VALUES (
         "05",
         "Icon VMC #01",
@@ -115,6 +123,8 @@ INSERT INTO machine_data_stat (
         "0",
         "0",
         " ",
+        "0",
+        "0",
         "0"
     );
 
@@ -123,7 +133,7 @@ INSERT INTO machine_data_stat (
     mach_num, mach_descrip, mach_location, image_to_use,
     random_wt_running, random_wt_fault_gen, random_wt_fault_dur,
     mach_stat_code, fault_time, fault_time_unix, fault_code, fault_descrip,
-    initiated_by
+    initiated_by, man_ovr, man_clock_tics
     ) VALUES (
         "06",
         "Clausing Lathe #01",
@@ -137,6 +147,8 @@ INSERT INTO machine_data_stat (
         "0",
         "0",
         " ",
+        "0",
+        "0",
         "0"
     );
 
@@ -145,7 +157,7 @@ INSERT INTO machine_data_stat (
     mach_num, mach_descrip, mach_location, image_to_use,
     random_wt_running, random_wt_fault_gen, random_wt_fault_dur,
     mach_stat_code, fault_time, fault_time_unix, fault_code, fault_descrip,
-    initiated_by
+    initiated_by, man_ovr, man_clock_tics
     ) VALUES (
         "07",
         "Clausing Lathe #02",
@@ -159,6 +171,8 @@ INSERT INTO machine_data_stat (
         "0",
         "0",
         " ",
+        "0",
+        "0",
         "0"
     );
 
@@ -167,7 +181,7 @@ INSERT INTO machine_data_stat (
     mach_num, mach_descrip, mach_location, image_to_use,
     random_wt_running, random_wt_fault_gen, random_wt_fault_dur,
     mach_stat_code, fault_time, fault_time_unix, fault_code, fault_descrip,
-    initiated_by
+    initiated_by, man_ovr, man_clock_tics
     ) VALUES (
         "08",
         "Fryer CNC #01",
@@ -181,6 +195,8 @@ INSERT INTO machine_data_stat (
         "0",
         "0",
         " ",
+        "0",
+        "0",
         "0"
     );
 
@@ -189,7 +205,7 @@ INSERT INTO machine_data_stat (
     mach_num, mach_descrip, mach_location, image_to_use,
     random_wt_running, random_wt_fault_gen, random_wt_fault_dur,
     mach_stat_code, fault_time, fault_time_unix, fault_code, fault_descrip,
-    initiated_by
+    initiated_by, man_ovr, man_clock_tics
     ) VALUES (
         "09",
         "TableTop CNC #01",
@@ -203,6 +219,8 @@ INSERT INTO machine_data_stat (
         "0",
         "0",
         " ",
+        "0",
+        "0",
         "0"
     );
 
@@ -211,7 +229,7 @@ INSERT INTO machine_data_stat (
     mach_num, mach_descrip, mach_location, image_to_use,
     random_wt_running, random_wt_fault_gen, random_wt_fault_dur,
     mach_stat_code, fault_time, fault_time_unix, fault_code, fault_descrip,
-    initiated_by
+    initiated_by, man_ovr, man_clock_tics
     ) VALUES (
         "10",
         "3D Printer #01",
@@ -225,36 +243,200 @@ INSERT INTO machine_data_stat (
         "0",
         "0",
         " ",
+        "0",
+        "0",
         "0"
     );
 
-
-
-CREATE TABLE rt_data (
-    mach_num VARCHAR(2),
-    mach_stat_code VARCHAR(20),
-    event_time VARCHAR(20),
-    event_time_unix VARCHAR(15),
-    fault_code INT,
-    fault_descrip VARCHAR(20),
-    PRIMARY KEY (mach_num)
-);
 
 
 INSERT INTO rt_data (
     mach_num, mach_stat_code, fault_code, fault_descrip
     ) VALUES (
-        "10",
-        "3D Printer #01",
-        "Printer room",
-        "3Dprinter_01.jpg",
-        "40",
-        "03",
-        "50",
-        "0",
-        "2020-01-01 07:00:00",
-        "0",
-        "0",
-        " ",
-        "0"
+        "00",
+        "00",
+        "00",
+        " "
     );
+
+INSERT INTO rt_data (
+    mach_num, mach_stat_code, fault_code, fault_descrip
+    ) VALUES (
+        "01",
+        "00",
+        "00",
+        " "
+    );
+
+INSERT INTO rt_data (
+    mach_num, mach_stat_code, fault_code, fault_descrip
+    ) VALUES (
+        "02",
+        "00",
+        "00",
+        " "
+    );
+
+INSERT INTO rt_data (
+    mach_num, mach_stat_code, fault_code, fault_descrip
+    ) VALUES (
+        "03",
+        "00",
+        "00",
+        " "
+    );
+
+INSERT INTO rt_data (
+    mach_num, mach_stat_code, fault_code, fault_descrip
+    ) VALUES (
+        "04",
+        "00",
+        "00",
+        " "
+    );
+
+INSERT INTO rt_data (
+    mach_num, mach_stat_code, fault_code, fault_descrip
+    ) VALUES (
+        "05",
+        "00",
+        "00",
+        " "
+    );
+
+INSERT INTO rt_data (
+    mach_num, mach_stat_code, fault_code, fault_descrip
+    ) VALUES (
+        "06",
+        "00",
+        "00",
+        " "
+    );
+
+INSERT INTO rt_data (
+    mach_num, mach_stat_code, fault_code, fault_descrip
+    ) VALUES (
+        "07",
+        "00",
+        "00",
+        " "
+    );
+
+INSERT INTO rt_data (
+    mach_num, mach_stat_code, fault_code, fault_descrip
+    ) VALUES (
+        "08",
+        "00",
+        "00",
+        " "
+    );
+
+INSERT INTO rt_data (
+    mach_num, mach_stat_code, fault_code, fault_descrip
+    ) VALUES (
+        "09",
+        "00",
+        "00",
+        " "
+    );
+
+INSERT INTO rt_data (
+    mach_num, mach_stat_code, fault_code, fault_descrip
+    ) VALUES (
+        "10",
+        "00",
+        "00", 
+        " "
+    );
+
+
+
+INSERT INTO fault_codes (
+    fault_code,
+    fault_descrip,
+    status_change
+    ) VALUES (
+        0,
+        "machine started",
+        1
+    );
+
+INSERT INTO fault_codes (
+    fault_code,
+    fault_descrip,
+    status_change
+    ) VALUES (
+        1,
+        "job finished",
+        0
+    );
+
+INSERT INTO fault_codes (
+    fault_code,
+    fault_descrip,
+    status_change
+    ) VALUES (
+        2,
+        "hit e-stop",
+        0
+    );
+    
+INSERT INTO fault_codes (
+    fault_code,
+    fault_descrip,
+    status_change
+    ) VALUES (
+        3,
+        "material low",
+        2
+    );
+
+INSERT INTO fault_codes (
+    fault_code,
+    fault_descrip,
+    status_change
+    ) VALUES (
+        4,
+        "waiting for tool change",
+        0
+    );
+
+INSERT INTO fault_codes (
+    fault_code,
+    fault_descrip,
+    status_change
+    ) VALUES (
+        5,
+        "guard open",
+        0
+    );
+
+INSERT INTO fault_codes (
+    fault_code,
+    fault_descrip,
+    status_change
+    ) VALUES (
+        6,
+        "low coolant",
+        2
+    );
+
+INSERT INTO fault_codes (
+    fault_code,
+    fault_descrip,
+    status_change
+    ) VALUES (
+        7,
+        "block delete on",
+        2
+    );
+
+INSERT INTO fault_codes (
+    fault_code,
+    fault_descrip,
+    status_change
+    ) VALUES (
+        8,
+        "lube on",
+        2
+    );   
