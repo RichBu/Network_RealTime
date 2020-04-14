@@ -327,8 +327,8 @@
 					};
 					$(idStr).addClass(statusStr);
 
-					var hTag4 = $('h3')
-					hTag4.text(statusDesc);
+					var hTag4 = $('<h3>')
+					hTag4.append(statusDesc);
 					mainDiv.append(hTag4);
 				};
 			  });

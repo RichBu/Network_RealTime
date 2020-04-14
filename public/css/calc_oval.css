@@ -390,6 +390,7 @@ input {
 .statusOffFull {
     width: 20px;
     height: 20px;
+    float: left;
     background: white;
     margin: 2px;
     border: 2px;
@@ -401,6 +402,7 @@ input {
 .statusOnFull {
     width: 20px;
     height: 20px;
+    float: left;
     background: red;
     margin: 2px;
     border: 2px;
@@ -412,6 +414,7 @@ input {
 .statusRunFull {
     width: 20px;
     height: 20px;
+    float: left;
     background: green;
     margin: 2px;
     border: 2px;
@@ -423,6 +426,7 @@ input {
 .statusHoldFull {
     width: 20px;
     height: 20px;
+    float: left;
     background: orange;
     margin: 2px;
     border: 2px;
