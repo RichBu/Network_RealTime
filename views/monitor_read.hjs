@@ -327,8 +327,43 @@
 					};
 					$(idStr).addClass(statusStr);
 
-					var hTag4 = $('<h3>')
+					//current status description
+					var hTag4 = $('<h4>')
 					hTag4.append(statusDesc);
+
+					//fault code
+					var brTag_06 = $('<br/>');
+					var brTag_07 = $('<br/>');
+					hTag4.append(brTag_06);
+					hTag4.append(brTag_07);
+
+					var faultCodeStr = "fault code: " + data[0].fault_code;
+					var faultDescStr = "fault desc: " + data[0].fault_descrip;
+					var faultTimeStr = "fault time: " + data[0].fault_time;
+					var faultInitByStr = "";
+					switch (data[0].initiated_by) {
+						case 0:
+							faultInitByStr = "automatic";
+							break;
+						case 1:
+							faultInitByStr = "simulator";
+							break;
+						case 2:
+							faultInitByStr = "manual";
+							break;
+					};
+
+					hTag4.append(faultCodeStr);
+					var brTag_08 = $('<br/>');
+					hTag4.append(brTag_08);
+					hTag4.append(faultDescStr);
+					var brTag_09 = $('<br/>');
+					hTag4.append(brTag_09);
+					hTag4.append(faultTimeStr);
+					var brTag_10 = $('<br/>');
+					hTag4.append(brTag_10);
+					hTag4.append(faultInitByStr);
+
 					mainDiv.append(hTag4);
 				};
 			  });
