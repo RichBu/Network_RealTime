@@ -345,6 +345,7 @@ input {
     background: white;
     float: left;
     margin: 2px;
+    border: 2px;
     border-style: solid;
     border-width: 2px;
     border-color: black;
@@ -379,6 +380,50 @@ input {
     height: 150px;
     background: orange;
     float: left;
+    margin: 2px;
+    border: 2px;
+    border-style: solid;
+    border-width: 2px;
+    border-color: black;
+}
+
+.statusOffFull {
+    width: 20px;
+    height: 20px;
+    background: white;
+    margin: 2px;
+    border: 2px;
+    border-style: solid;
+    border-width: 2px;
+    border-color: black;
+}
+
+.statusOnFull {
+    width: 20px;
+    height: 20px;
+    background: red;
+    margin: 2px;
+    border: 2px;
+    border-style: solid;
+    border-width: 2px;
+    border-color: black;
+}
+
+.statusRunFull {
+    width: 20px;
+    height: 20px;
+    background: green;
+    margin: 2px;
+    border: 2px;
+    border-style: solid;
+    border-width: 2px;
+    border-color: black;
+}
+
+.statusHoldFull {
+    width: 20px;
+    height: 20px;
+    background: orange;
     margin: 2px;
     border: 2px;
     border-style: solid;

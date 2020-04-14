@@ -486,6 +486,7 @@ router.post('/update-rt-data', function(req, res, next) {
             ], function(err2, response2) {
                 //should check if there is an error
                 continF = 1;
+
                 /*
                 var query3 = "UPDATE mach_rt SET mach_stat_code=? WHERE mach_num=?";
                 connection.query(query3, [
@@ -496,6 +497,15 @@ router.post('/update-rt-data', function(req, res, next) {
                     continF = 1;
                 });
                 */
+            });
+            //update the machine_data_stat table
+            //does not have to be synchronized
+            var query3 = "UPDATE machine_data_stat SET mach_stat_code=? WHERE mach_num=?";
+            connection.query(query3, [
+                outMachCode,
+                outMachNum
+            ], function(err3, response3) {
+                //wrote successfully to the machine_data_stat table
             });
         }; //for loop
 
@@ -642,10 +652,8 @@ router.post('/read-rt-data', function(req, res, next) {
                     //loop thru all of the responses
                     if (response[i].mach_num == "99") {
                         updateDate_int = parseInt(response[i].mach_stat_code);
-                        console.log("update int = " + updateDate_int);
                         updateDate = moment(updateDate_int);
                         updateDateStr = updateDate.format("HH:mm:ss MM/DD/YYYY");
-                        console.log("update date = " + updateDateStr);
                         dataOutput.push(new outputObj(
                             "99",
                             updateDateStr,
@@ -662,7 +670,6 @@ router.post('/read-rt-data', function(req, res, next) {
                     };
                 };
             } else {
-                console.log(response);
                 console.log(response[0].mach_descrip);
                 //want output for a single machine
                 dataOutput.push(new outputObj2(

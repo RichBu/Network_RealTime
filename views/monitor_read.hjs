@@ -289,6 +289,47 @@
 					mainDiv.append(spacesDown);
 					mainDiv.append(hTag2);
 					mainDiv.append(hTag3);
+
+					var divTag = $('<div>');
+					divTag.attr('id', 'currStatus');
+					//var imgTag = $('<img src="'+'/images/Blank_01.jpg">');
+					//divTag.append(imgTag);
+					mainDiv.append(divTag);
+
+					var idStr = "#currStatus";
+					var statusStr = "statusOffFull";
+					var statusDec = "";  //description to print
+					$(idStr).removeClass(statusStr);
+					statusStr = "statusOnFull";
+					$(idStr).removeClass(statusStr);
+					statusStr = "statusRunFull";
+					$(idStr).removeClass(statusStr);
+					statusStr = "statusHoldFull";
+					$(idStr).removeClass(statusStr);
+
+					switch (data[0].mach_stat_code) {
+						case "00":
+						  	statusStr = "statusOffFull"; 
+							statusDesc = "off-line";
+						  	break;
+						case "01":
+							statusStr = "statusOnFull";
+							statusDesc = "not running";
+						  	break;
+						case "03":
+							statusStr = "statusRunFull";
+							statusDesc = "running";
+						  	break;
+						case "09":
+							statusStr = "statusHoldFull";
+							statusDesc = "warning";
+						  	break;    
+					};
+					$(idStr).addClass(statusStr);
+
+					var hTag4 = $('h3')
+					hTag4.text(statusDesc);
+					mainDiv.append(hTag4);
 				};
 			  });
 		};  // readData function
