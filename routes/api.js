@@ -558,8 +558,13 @@ router.post('/read-rt-data', function(req, res, next) {
 
     var loginValid = 'false';
     var outputUrl = '/';
+    var searchMach = '*';
 
     console.log('at read-rt-data post route');
+
+    searchMach = req.body.machNum;
+    console.log("machNum");
+    console.log(req.body.machNum);
 
     var dataOutput = [];
 
@@ -593,33 +598,87 @@ router.post('/read-rt-data', function(req, res, next) {
                 this.fault_descrip = _fault_descrip
         };
 
+        //output for a single machine
+        function outputObj2(_machNum,
+            _mach_descrip,
+            _mach_location,
+            _image_to_use,
+            _mach_stat_code,
+            _fault_time,
+            _fault_time_unix,
+            _fault_code,
+            _fault_descrip,
+            _initiated_by,
+            _man_ovr,
+            _man_clock_tics
+        ) {
+            this.mach_num = _machNum,
+                this.mach_descrip = _mach_descrip,
+                this.mach_location = _mach_location,
+                this.image_to_use = _image_to_use,
+                this.mach_stat_code = _mach_stat_code,
+                this.fault_time = _fault_time,
+                this.fault_time_unix = _fault_time_unix,
+                this.fault_code = _fault_code,
+                this.fault_descrip = _fault_descrip,
+                this.initiated_by = _initiated_by,
+                this.man_ovr = _man_ovr,
+                this.man_clock_tics = _man_clock_tics
+        };
+
         let updateDate = moment();
         let updateDate_int = 0;
         let updateDateStr = "";
-        var query2 = "SELECT * FROM rt_data";
+        var query2 = "";
+        if (searchMach == "-99") {
+            //want all of the machines
+            var query2 = "SELECT * FROM rt_data";
+        } else { //{SELECT * FROM event_bytime WHERE on_time_utc >= ? AND on_time_utc <= ?
+            var query2 = "SELECT * FROM machine_data_stat WHERE mach_num='" + searchMach + "'";
+        };
         connection.query(query2, [], function(err, response) {
-            for (var i = 0; i < response.length; i++) {
-                //loop thru all of the responses
-                if (response[i].mach_num == "99") {
-                    updateDate_int = parseInt(response[i].mach_stat_code);
-                    console.log("update int = " + updateDate_int);
-                    updateDate = moment(updateDate_int);
-                    updateDateStr = updateDate.format("HH:mm:ss MM/DD/YYYY");
-                    console.log("update date = " + updateDateStr);
-                    dataOutput.push(new outputObj(
-                        "99",
-                        updateDateStr,
-                        "00",
-                        " "
-                    ));
-                } else {
-                    dataOutput.push(new outputObj(
-                        response[i].mach_num,
-                        response[i].mach_stat_code,
-                        response[i].fault_code,
-                        response[i].fault_descrip
-                    ));
+            if (searchMach == "-99") {
+                for (var i = 0; i < response.length; i++) {
+                    //loop thru all of the responses
+                    if (response[i].mach_num == "99") {
+                        updateDate_int = parseInt(response[i].mach_stat_code);
+                        console.log("update int = " + updateDate_int);
+                        updateDate = moment(updateDate_int);
+                        updateDateStr = updateDate.format("HH:mm:ss MM/DD/YYYY");
+                        console.log("update date = " + updateDateStr);
+                        dataOutput.push(new outputObj(
+                            "99",
+                            updateDateStr,
+                            "00",
+                            " "
+                        ));
+                    } else {
+                        dataOutput.push(new outputObj(
+                            response[i].mach_num,
+                            response[i].mach_stat_code,
+                            response[i].fault_code,
+                            response[i].fault_descrip
+                        ));
+                    };
                 };
+            } else {
+                console.log(response);
+                console.log(response[0].mach_descrip);
+                //want output for a single machine
+                dataOutput.push(new outputObj2(
+                    response[0].mach_num,
+                    response[0].mach_descrip,
+                    response[0].mach_location,
+                    response[0].image_to_use,
+                    response[0].mach_stat_code,
+                    response[0].fault_time,
+                    response[0].fault_time_unix,
+                    response[0].fault_code,
+                    response[0].fault_descrip,
+                    response[0].initiated_by,
+                    response[0].man_ovr,
+                    response[0].man_clock_tics
+                ));
             };
 
             //calculate the time difference
@@ -647,7 +706,6 @@ router.post('/read-rt-data', function(req, res, next) {
             ));
             res.status(201).send(dataOutput); //201 means record has been created
         });
-
     } else {
         var actionDone = 'api-post RT data';
         var actionString = 'tried to add but timed out';

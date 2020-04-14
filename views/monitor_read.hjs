@@ -79,15 +79,6 @@
 				</div>	
 				<!-- Machine Data Output -->
 				<div id="machineDiv" class="row">
-					<h3>M01
-						<br/>
-						Haas Lathe
-						<br/>
-						Production
-						<br/>
-					</h3>
-					<img src="/images/Haas_01.jpg" class="imageCNCbig">
-					<h3></h3>
 				</div>	
 				<div class="row">
 					<br/>
@@ -217,43 +208,87 @@
 
 
 		var readData = function() {
-			  var data = "";
+			  var machStr = "-99";
+			  if (dispType==2) {
+				//displaying just a single machine
+				machStr =  currMach.toString();
+			  };
+
+			  var dataOut = { machNum: machStr, testfield: "00" };
 			  var url = "/api/read-rt-data";
-			  $.post(url, data, function(data) {
+			  $.post(url, dataOut, function(data) {
 				console.log("got read result");
-				//console.log(data);
-				for (var i=0; i<data.length; i++) {
-					if (data[i].mach_num.trim() == "98" || data[i].mach_num.trim() == "99") {
-						//this is the update time
-						if (data[i].mach_num.trim() == "98") {
-							//this is the difference
-							$("#diffUpdate").html("<h4>Hours since upload: " + data[i].mach_stat_code + "</h4>");
+				if (dispType==1) {
+					//machine list
+					for (var i=0; i<data.length; i++) {
+						if (data[i].mach_num.trim() == "98" || data[i].mach_num.trim() == "99") {
+							//this is the update time
+							if (data[i].mach_num.trim() == "98") {
+								//this is the difference
+								$("#diffUpdate").html("<h4>Hours since upload: " + data[i].mach_stat_code + "</h4>");
+							};
+							if (data[i].mach_num.trim() == "99") {
+								//this is the last update
+								$("#lastUpdate").html("<h4>Last upload: " + data[i].mach_stat_code + "</h4>");
+							};
+						} else {
+							//a machine update 
+							var idStr = "#M" + data[i].mach_num.trim();
+							$(idStr).removeClass();
+							var statusStr = "statusOff";
+							switch (data[i].mach_stat_code) {
+								case "00":
+						  			statusStr = "statusOff"; 
+						  			break;
+								case "01":
+							  		statusStr = "statusOn";
+						  			break;
+								case "03":
+							  		statusStr = "statusRun";
+						  			break;
+								case "09":
+							  		statusStr = "statusHold";
+						  		break;    
+							};
+							$(idStr).addClass(statusStr);
 						};
-						if (data[i].mach_num.trim() == "99") {
-							//this is the last update
-							$("#lastUpdate").html("<h4>Last upload: " + data[i].mach_stat_code + "</h4>");
-						};
-					} else {
-						//a machine update 
-						var idStr = "#M" + data[i].mach_num.trim();
-						$(idStr).removeClass();
-						var statusStr = "statusOff";
-						switch (data[i].mach_stat_code) {
-							case "00":
-						  		statusStr = "statusOff"; 
-						  		break;
-							case "01":
-						  		statusStr = "statusOn";
-						  		break;
-							case "03":
-						  		statusStr = "statusRun";
-						  		break;
-							case "09":
-						  		statusStr = "statusHold";
-						  	break;    
-						};
-						$(idStr).addClass(statusStr);
 					};
+				} else {
+					//single machine
+					var mainDiv = $("#machineDiv").html("");
+					var hTag1 = $("<h3>");
+					hTag1.append('M' + data[0].mach_num);
+					hTag1.append("<br/>");
+					hTag1.append(data[0].mach_descrip);
+					hTag1.append("<br/>");
+					hTag1.append(data[0].mach_location);
+					hTag1.append("<br/");
+					var imgTag = $('<img src="'+'/images/' + data[0].image_to_use.trim() + '">');
+					imgTag.addClass("imageCNCbig");
+
+					mainDiv.append(hTag1);
+					mainDiv.append(imgTag);
+
+					var spacesDown = $('<h4>');
+					var brTag_01 = $('<br/>');
+					var brTag_02 = $('<br/>');
+					var brTag_03 = $('<br/>');
+					var brTag_04 = $('<br/>');
+					var brTag_05 = $('<br/>');
+					spacesDown.append(brTag_01);
+					spacesDown.append(brTag_02);
+					spacesDown.append(brTag_03);
+					spacesDown.append(brTag_04);
+					spacesDown.append(brTag_05);
+
+					var hTag2 = $('<h5>');
+					hTag2.append('(click to close)');
+					var hTag3 = $('<h3>'); 
+
+					console.log(spacesDown);
+					mainDiv.append(spacesDown);
+					mainDiv.append(hTag2);
+					mainDiv.append(hTag3);
 				};
 			  });
 		};  // readData function
@@ -316,9 +351,11 @@
 			  event.preventDefault();
 			  console.log("clicked pause button");
 			  clearInterval(tmrHandle);
-			  for (var i=0; i<9; i++) {
+			  for (var i=0; i<10; i++) {
 				var machNum = i+1;  
-				var idStr = "#M0" + machNum.toString().trim();
+				var machZero = "0";
+				if (machNum>=10) machZero = "";
+				var idStr = "#M" + machZero + machNum.toString().trim();
 				$(idStr).removeClass();
 				var statusStr = "statusOff";
 				$(idStr).addClass(statusStr);
@@ -347,8 +384,10 @@
 			$('.machPic').on('click', function (event) {
 				event.preventDefault();
 				currMach = $(this).attr("data-pic");
-				console.log("pic = " + currMach);
+				//clear the div first before displaying it
+				$("#machineDiv").html("");
 				displayDiv(2);  //disp one machine
+				readData();
 			});
 
 			displayDiv(1); //display all machines
