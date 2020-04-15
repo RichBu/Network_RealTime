@@ -741,4 +741,147 @@ router.post('/read-rt-data', function(req, res, next) {
 }); //read-rt-data
 
 
+
+
+//simulation routines
+function simPulse() {
+    //this is executed every simulation cycle
+    console.log("simulation pulse");
+
+    function machDataObj(_mach_num, _mach_stat_code, _fault_time, _fault_time_unix,
+        _fault_code, _fault_descrip, _initiated_by, _man_ovr, _man_clock_tics) {
+        this.mach_num = _mach_num,
+            this.mach_stat_code = _mach_stat_code,
+            this.fault_time = _fault_time,
+            this.fault_time_unix = _fault_time_unix,
+            this.fault_code = _fault_code,
+            this.fault_descrip = _fault_descrip,
+            this.initiated_by = _initiated_by,
+            this.man_ovr = _man_ovr,
+            this.man_clock_tics = _man_clock_tics
+    };
+
+    var querySim = "SELECT * FROM machine_data_stat";
+    connection.query(querySim, [], function(err, respMachData) {
+        //respMachData has all of the records
+
+        const mstat_offline = "00";
+        const mstat_notrunning = "01";
+        const mstat_running = "03";
+        const mstat_warning = "09";
+        const numFaults = 9;
+
+        let numRand = 0;
+        let simUpdNeeded = 0;
+
+        for (var i = 0; i < respMachData.length; i++) {
+            let machDataUpdate = new machDataObj(respMachData[i].mach_num,
+                respMachData[i].mach_stat_code,
+                respMachData[i].fault_time,
+                respMachData[i].fault_time_unix,
+                respMachData[i].fault_code,
+                respMachData[i].fault_descrip,
+                respMachData[i].initiated_by,
+                respMachData[i].man_ovr,
+                respMachData[i].man_clock_tics
+            );
+            switch (respMachData[i].mach_stat_code) {
+                case mstat_offline:
+                    break;
+                case mstat_notrunning:
+                    numRand = Math.random() * 500;
+                    if (numRand > respMachData[i].random_wt_fault_dur) {
+                        //fault is over
+                        simUpdNeeded = 1;
+                        machDataUpdate.fault_code = 0;
+                        machDataUpdate.fault_descrip = "upd";
+                    };
+                    break;
+                case mstat_running:
+                    //it's runnig so see if a fault should be generated
+                    numRand = Math.random() * 100.0;
+                    if (numRand <= respMachData[i].random_wt_running) {
+                        //machine to keep running
+                        simUpdNeeded = 0;
+                    } else {
+                        simUpdNeeded = 1;
+                        numRand = Math.random() * 100;
+                        if (numRand <= respMachData.random_wt_fault_gen) {
+                            numRand = Math.random() * (numFaults - 2) + 2; //don't pick 0 or 1
+                            machDataUpdate.fault_code = numRand;
+                            machDataUpdate.fault_descrip = "upd";
+                        } else {
+                            //no fault, just a stop
+                            machDataUpdate.fault_code = 1;
+                            machDataUpdate.fault_descrip = "upd";
+                        };
+                    };
+                    break;
+                case mstat_warning:
+                    //machine is running so just see how long the duration should be
+                    numRand = Math.random() * 500;
+                    if (numRand > respMachData[i].random_wt_fault_dur) {
+                        //fault is over
+                        simUpdNeeded = 1;
+                        machDataUpdate.fault_code = 0;
+                        machDataUpdate.fault_descrip = "upd";
+                    };
+                    break;
+            };
+            if (simUpdNeeded == 1) {
+                //there is an update needed to data_stat and RT
+                var query6 = "SELECT * FROM fault_codes WHERE fault_code='" + machDataUpdate.fault_code + "'";
+                connection.query(query6, [], function(err, response) {
+                    //now, I know the fault code
+                    machDataUpdate.fault_descrip = response[0].fault_descrip;
+                    //should the machine be stopped ?
+                    if (response[0].status_change == 0) {
+                        //stop the machine
+                        machDataUpdate.mach_stat_code = mstat_notrunning;
+                    } else {
+                        if (response[0].status_change == 1) {
+                            //start the machine
+                            machDataUpdate.mach_stat_code = mstat_running;
+                        } else {
+                            //there is no status change, but there is a warning, set it to warning
+                            if (machDataUpdate.mach_stat_code == mstat_running) machDataUpdate.mach_stat_code = mstat_warning;
+                        };
+                    };
+                    //now can write to data_stat and rt
+                    var query7 = "UPDATE rt_data SET mach_stat_code=?, fault_code=?, fault_descrip=? WHERE mach_num=?";
+                    connection.query(query7, [
+                        machDataUpdate.mach_stat_code,
+                        machDataUpdate.fault_code,
+                        machDataUpdate.fault_descrip,
+                        machDataUpdate.mach_num
+                    ], function(err2, response2) {
+                        //updated rt_data, now do the data_stat
+                        var query8 = "UPDATE machine_data_stat SET mach_stat_code=?, fault_code=?, fault_descrip=?,";
+                        query8 = query8 + " fault_time=?, fault_time_unix=?, initiated_by=?, man_ovr=?, man_clock_tics=? ";
+                        query8 = query8 + "  WHERE mach_num=?";
+                        connection.query(query8, [
+                            machDataUpdate.mach_stat_code,
+                            machDataUpdate.fault_code,
+                            machDataUpdate.fault_descrip,
+                            machDataUpdate.fault_time,
+                            machDataUpdate.fault_time.unix,
+                            machDataUpdate.initiated_by,
+                            machDataUpdate.man_ovr,
+                            machDataUpdate.man_clock_tics,
+                            machDataUpdate.mach_num
+                        ], function(err2, response2) {
+                            //all the updates are done 
+                        });
+                    }); //update rt_data
+                }); //read fault descrip
+            }; //simulation update is needed
+        }; //for loop for all the data_stat records
+    });
+}
+
+tmrSimulHandle = setInterval(() => {
+    simPulse();
+}, 10000);
+
+
 module.exports = router;
