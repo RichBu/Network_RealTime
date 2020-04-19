@@ -139,6 +139,9 @@
 					<br/>&nbsp;&nbsp;yellow = warning but running
 					<br/>
 					<br/>
+					<br/>You can run this monitoring in multiple windows / computers. 
+					Try it !  Really cool.
+					<br/>
 					<br/>Software developed by Rich Budek.
 					<br/>
 					<br/>
@@ -305,11 +308,21 @@
 							var brTag_03 = $('<br/>');
 							var brTag_04 = $('<br/>');
 							var brTag_05 = $('<br/>');
+							var brTag_06 = $('<br/>');
+							var brTag_07 = $('<br/>');
+							var brTag_08 = $('<br/>');
+							var brTag_09 = $('<br/>');
+							var brTag_10 = $('<br/>');
 							spacesDown.append(brTag_01);
 							spacesDown.append(brTag_02);
 							spacesDown.append(brTag_03);
 							spacesDown.append(brTag_04);
 							spacesDown.append(brTag_05);
+							spacesDown.append(brTag_06);
+							spacesDown.append(brTag_07);
+							spacesDown.append(brTag_08);
+							spacesDown.append(brTag_09);
+							spacesDown.append(brTag_10);
 
 							var hTag2 = $('<h5>');
 							hTag2.append('(click to close)');
