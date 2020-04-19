@@ -61,6 +61,8 @@
 					<br/>
 					<button id="btn-stopRead" class="calcButton btn btn-primary" >Stop Reading</button>	
 					<br/>
+					<button id="btn-simul" class="calcButton btn btn-primary" >Simulate</button>	
+					<br/>
 					<br/>
 					<br/><h3>&nbsp</h3>
 				</div>				
@@ -206,6 +208,15 @@
 			};
 		}
 
+
+		var pulseSimul = function() {
+			//tell the backend to do one simulation pulse
+			  var dataOut = { testfield: "00" };
+			  var url = "/api/pulse_simul";
+			  $.post(url, dataOut, function(data) {
+				console.log("simulation successful");
+			  });
+		};
 
 		var readData = function() {
 			  var machStr = "-99";
@@ -410,6 +421,13 @@
 			  event.preventDefault();
 			  closeModals();
 			  window.location.href = "http://www.msn.com";
+		  });
+
+
+		  $('#btn-simul').on('click', function (event) {
+			  event.preventDefault();
+			  console.log("clicked simul button");
+			  pulseSimul();
 		  });
 
 

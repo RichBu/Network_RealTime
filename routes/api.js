@@ -573,8 +573,8 @@ router.post('/read-rt-data', function(req, res, next) {
     console.log('at read-rt-data post route');
 
     searchMach = req.body.machNum;
-    console.log("machNum");
-    console.log(req.body.machNum);
+    //* console.log("machNum");
+    //* console.log(req.body.machNum);
 
     var dataOutput = [];
 
@@ -670,7 +670,7 @@ router.post('/read-rt-data', function(req, res, next) {
                     };
                 };
             } else {
-                console.log(response[0].mach_descrip);
+                //* console.log(response[0].mach_descrip);
                 //want output for a single machine
                 dataOutput.push(new outputObj2(
                     response[0].mach_num,
@@ -703,10 +703,10 @@ router.post('/read-rt-data', function(req, res, next) {
             let diffSec = math.floor(tempCalc).valueOf();
             let diffStr = sprintf("%'02i", diffHours) + ":" + sprintf("%'02i", diffMin) + ":" + sprintf("%'02i", diffSec);
 
-            console.log("curr date = " + curDate.format("HH:mm:ss"));
-            console.log("upd date = " + updDate.format("HH:mm:ss"));
-            console.log("diff str = " + diffStr);
-            console.log(" ");
+            //* console.log("curr date = " + curDate.format("HH:mm:ss"));
+            //* console.log("upd date = " + updDate.format("HH:mm:ss"));
+            //* console.log("diff str = " + diffStr);
+            //* console.log(" ");
             dataOutput.push(new outputObj(
                 "98",
                 diffStr
@@ -761,6 +761,21 @@ function simPulse() {
             this.man_clock_tics = _man_clock_tics
     };
 
+
+    function updateFaultDate(_machDataStat) {
+        //update the fault date
+        currDate = moment();
+        currDateUnix = moment.unix(currDate);
+        currDateUnix = moment().valueOf();
+        _machDataStat.fault_time = currDate.format("HH:mm:ss  MM/DD/YYYY");
+        _machDataStat.fault_time_unix = currDateUnix;
+    };
+
+
+    async function writeUpdates() {
+        //async function to handle all of the writes to the database
+    };
+
     var querySim = "SELECT * FROM machine_data_stat";
     connection.query(querySim, [], function(err, respMachData) {
         //respMachData has all of the records
@@ -774,7 +789,8 @@ function simPulse() {
         let numRand = 0;
         let simUpdNeeded = 0;
 
-        for (var i = 0; i < respMachData.length; i++) {
+        //to make i work in async functions
+        for (let i = 0; i < respMachData.length; i++) {
             let machDataUpdate = new machDataObj(respMachData[i].mach_num,
                 respMachData[i].mach_stat_code,
                 respMachData[i].fault_time,
@@ -787,6 +803,10 @@ function simPulse() {
             );
             switch (respMachData[i].mach_stat_code) {
                 case mstat_offline:
+                    simUpdNeeded = 1;
+                    machDataUpdate.fault_code = 0;
+                    machDataUpdate.fault_descrip = "upd";
+                    updateFaultDate(machDataUpdate);
                     break;
                 case mstat_notrunning:
                     numRand = Math.random() * 500;
@@ -795,6 +815,7 @@ function simPulse() {
                         simUpdNeeded = 1;
                         machDataUpdate.fault_code = 0;
                         machDataUpdate.fault_descrip = "upd";
+                        updateFaultDate(machDataUpdate);
                     };
                     break;
                 case mstat_running:
@@ -806,14 +827,20 @@ function simPulse() {
                     } else {
                         simUpdNeeded = 1;
                         numRand = Math.random() * 100;
-                        if (numRand <= respMachData.random_wt_fault_gen) {
-                            numRand = Math.random() * (numFaults - 2) + 2; //don't pick 0 or 1
+                        console.log("mach #" + i + " randum #1 = " + numRand + " wt=" + respMachData[i].random_wt_fault_gen);;
+                        //console.log()
+                        if (numRand <= respMachData[i].random_wt_fault_gen) {
+                            numRand = Math.floor(Math.random() * (numFaults - 2) + 2); //don't pick 0 or 1
+                            console.log("*** new fault code rand num = " + numRand);
                             machDataUpdate.fault_code = numRand;
                             machDataUpdate.fault_descrip = "upd";
+                            updateFaultDate(machDataUpdate);
                         } else {
                             //no fault, just a stop
+                            console.log("just a stop");
                             machDataUpdate.fault_code = 1;
                             machDataUpdate.fault_descrip = "upd";
+                            updateFaultDate(machDataUpdate);
                         };
                     };
                     break;
@@ -825,15 +852,21 @@ function simPulse() {
                         simUpdNeeded = 1;
                         machDataUpdate.fault_code = 0;
                         machDataUpdate.fault_descrip = "upd";
+                        updateFaultDate(machDataUpdate);
                     };
                     break;
             };
             if (simUpdNeeded == 1) {
                 //there is an update needed to data_stat and RT
-                var query6 = "SELECT * FROM fault_codes WHERE fault_code='" + machDataUpdate.fault_code + "'";
+                console.log("*** sim update needed. fault= " + machDataUpdate.fault_code);
+                let query6 = "SELECT * FROM fault_codes WHERE fault_code='" + machDataUpdate.fault_code + "'";
                 connection.query(query6, [], function(err, response) {
                     //now, I know the fault code
                     machDataUpdate.fault_descrip = response[0].fault_descrip;
+                    console.log("*** sim from query: ");
+                    console.log(response[0].fault_descrip);
+                    console.log(response[0].fault_code);
+
                     //should the machine be stopped ?
                     if (response[0].status_change == 0) {
                         //stop the machine
@@ -848,7 +881,7 @@ function simPulse() {
                         };
                     };
                     //now can write to data_stat and rt
-                    var query7 = "UPDATE rt_data SET mach_stat_code=?, fault_code=?, fault_descrip=? WHERE mach_num=?";
+                    let query7 = "UPDATE rt_data SET mach_stat_code=?, fault_code=?, fault_descrip=? WHERE mach_num=?";
                     connection.query(query7, [
                         machDataUpdate.mach_stat_code,
                         machDataUpdate.fault_code,
@@ -856,7 +889,7 @@ function simPulse() {
                         machDataUpdate.mach_num
                     ], function(err2, response2) {
                         //updated rt_data, now do the data_stat
-                        var query8 = "UPDATE machine_data_stat SET mach_stat_code=?, fault_code=?, fault_descrip=?,";
+                        let query8 = "UPDATE machine_data_stat SET mach_stat_code=?, fault_code=?, fault_descrip=?,";
                         query8 = query8 + " fault_time=?, fault_time_unix=?, initiated_by=?, man_ovr=?, man_clock_tics=? ";
                         query8 = query8 + "  WHERE mach_num=?";
                         connection.query(query8, [
@@ -879,9 +912,17 @@ function simPulse() {
     });
 }
 
+
 tmrSimulHandle = setInterval(() => {
     simPulse();
 }, 10000);
+
+
+//post route to trigger a simulation
+router.post('/pulse_simul', function(req, res, next) {
+    console.log("pulse the simulator");
+    simPulse();
+});
 
 
 module.exports = router;

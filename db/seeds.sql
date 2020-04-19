@@ -44,7 +44,7 @@ INSERT INTO machine_data_stat (
         "Production",
         "Haas_01.jpg",
         "70",
-        "20",
+        "35",
         "100",
         "0",
         "2020-01-01 07:00:00",
@@ -68,7 +68,7 @@ INSERT INTO machine_data_stat (
         "Production",
         "Haas_01.jpg",
         "80",
-        "15",
+        "25",
         "400",
         "0",
         "2020-01-01 07:00:00",
@@ -92,7 +92,7 @@ INSERT INTO machine_data_stat (
         "Production",
         "Haas_01.jpg",
         "77",
-        "17",
+        "40",
         "300",
         "0",
         "2020-01-01 07:00:00",
@@ -116,7 +116,7 @@ INSERT INTO machine_data_stat (
         "Production",
         "Icon_01.jpg",
         "85",
-        "10",
+        "40",
         "200",
         "0",
         "2020-01-01 07:00:00",
@@ -140,7 +140,7 @@ INSERT INTO machine_data_stat (
         "Lathe Dept.",
         "Lathe_01.jpg",
         "60",
-        "5",
+        "30",
         "250",
         "0",
         "2020-01-01 07:00:00",
@@ -164,7 +164,7 @@ INSERT INTO machine_data_stat (
         "Lathe Dept.",
         "Lathe_01.jpg",
         "50",
-        "4",
+        "20",
         "100",
         "0",
         "2020-01-01 07:00:00",
@@ -188,7 +188,7 @@ INSERT INTO machine_data_stat (
         "Toolroom",
         "Fryer_01.jpg",
         "30",
-        "1",
+        "80",
         "400",
         "0",
         "2020-01-01 07:00:00",
@@ -247,6 +247,7 @@ INSERT INTO machine_data_stat (
         "0",
         "0"
     );
+
 
 
 
