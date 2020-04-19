@@ -13,7 +13,7 @@ INSERT INTO machine_data_stat (
     mach_num, mach_descrip, mach_location, image_to_use,
     random_wt_running, random_wt_fault_gen, random_wt_fault_dur,
     mach_stat_code, fault_time, fault_time_unix, fault_code, fault_descrip,
-    initiated_by, man_ovr, man_clock_tics
+    initiated_by, man_ovr, man_clock_tics, disp_mini
     ) VALUES (
         "01",
         "Haas VMC #01",
@@ -29,7 +29,8 @@ INSERT INTO machine_data_stat (
         " ",
         "0",
         "0",
-        "0"
+        "0",
+        "1"
     );
 
 
@@ -37,7 +38,7 @@ INSERT INTO machine_data_stat (
     mach_num, mach_descrip, mach_location, image_to_use,
     random_wt_running, random_wt_fault_gen, random_wt_fault_dur,
     mach_stat_code, fault_time, fault_time_unix, fault_code, fault_descrip,
-    initiated_by, man_ovr, man_clock_tics
+    initiated_by, man_ovr, man_clock_tics, disp_mini
     ) VALUES (
         "02",
         "Haas VMC #02",
@@ -53,7 +54,8 @@ INSERT INTO machine_data_stat (
         " ",
         "0",
         "0",
-        "0"
+        "0",
+        "1"
     );
 
 
@@ -61,7 +63,7 @@ INSERT INTO machine_data_stat (
     mach_num, mach_descrip, mach_location, image_to_use,
     random_wt_running, random_wt_fault_gen, random_wt_fault_dur,
     mach_stat_code, fault_time, fault_time_unix, fault_code, fault_descrip,
-    initiated_by, man_ovr, man_clock_tics
+    initiated_by, man_ovr, man_clock_tics, disp_mini
     ) VALUES (
         "03",
         "Haas VMC #03",
@@ -77,7 +79,8 @@ INSERT INTO machine_data_stat (
         " ",
         "0",
         "0",
-        "0"
+        "0",
+        "1"
     );
 
 
@@ -85,7 +88,7 @@ INSERT INTO machine_data_stat (
     mach_num, mach_descrip, mach_location, image_to_use,
     random_wt_running, random_wt_fault_gen, random_wt_fault_dur,
     mach_stat_code, fault_time, fault_time_unix, fault_code, fault_descrip,
-    initiated_by, man_ovr, man_clock_tics
+    initiated_by, man_ovr, man_clock_tics, disp_mini
     ) VALUES (
         "04",
         "Haas VMC #04",
@@ -101,7 +104,8 @@ INSERT INTO machine_data_stat (
         " ",
         "0",
         "0",
-        "0"
+        "0",
+        "1"
     );
 
 
@@ -109,7 +113,7 @@ INSERT INTO machine_data_stat (
     mach_num, mach_descrip, mach_location, image_to_use,
     random_wt_running, random_wt_fault_gen, random_wt_fault_dur,
     mach_stat_code, fault_time, fault_time_unix, fault_code, fault_descrip,
-    initiated_by, man_ovr, man_clock_tics
+    initiated_by, man_ovr, man_clock_tics, disp_mini
     ) VALUES (
         "05",
         "Icon VMC #01",
@@ -125,7 +129,8 @@ INSERT INTO machine_data_stat (
         " ",
         "0",
         "0",
-        "0"
+        "0",
+        "1"
     );
 
 
@@ -133,7 +138,7 @@ INSERT INTO machine_data_stat (
     mach_num, mach_descrip, mach_location, image_to_use,
     random_wt_running, random_wt_fault_gen, random_wt_fault_dur,
     mach_stat_code, fault_time, fault_time_unix, fault_code, fault_descrip,
-    initiated_by, man_ovr, man_clock_tics
+    initiated_by, man_ovr, man_clock_tics, disp_mini
     ) VALUES (
         "06",
         "Clausing Lathe #01",
@@ -149,7 +154,8 @@ INSERT INTO machine_data_stat (
         " ",
         "0",
         "0",
-        "0"
+        "0",
+        "1"
     );
 
 
@@ -157,7 +163,7 @@ INSERT INTO machine_data_stat (
     mach_num, mach_descrip, mach_location, image_to_use,
     random_wt_running, random_wt_fault_gen, random_wt_fault_dur,
     mach_stat_code, fault_time, fault_time_unix, fault_code, fault_descrip,
-    initiated_by, man_ovr, man_clock_tics
+    initiated_by, man_ovr, man_clock_tics, disp_mini
     ) VALUES (
         "07",
         "Clausing Lathe #02",
@@ -173,7 +179,8 @@ INSERT INTO machine_data_stat (
         " ",
         "0",
         "0",
-        "0"
+        "0",
+        "1"
     );
 
 
@@ -181,7 +188,7 @@ INSERT INTO machine_data_stat (
     mach_num, mach_descrip, mach_location, image_to_use,
     random_wt_running, random_wt_fault_gen, random_wt_fault_dur,
     mach_stat_code, fault_time, fault_time_unix, fault_code, fault_descrip,
-    initiated_by, man_ovr, man_clock_tics
+    initiated_by, man_ovr, man_clock_tics, disp_mini
     ) VALUES (
         "08",
         "Fryer CNC #01",
@@ -197,7 +204,8 @@ INSERT INTO machine_data_stat (
         " ",
         "0",
         "0",
-        "0"
+        "0",
+        "1"
     );
 
 
@@ -205,7 +213,7 @@ INSERT INTO machine_data_stat (
     mach_num, mach_descrip, mach_location, image_to_use,
     random_wt_running, random_wt_fault_gen, random_wt_fault_dur,
     mach_stat_code, fault_time, fault_time_unix, fault_code, fault_descrip,
-    initiated_by, man_ovr, man_clock_tics
+    initiated_by, man_ovr, man_clock_tics, disp_mini
     ) VALUES (
         "09",
         "TableTop CNC #01",
@@ -221,7 +229,8 @@ INSERT INTO machine_data_stat (
         " ",
         "0",
         "0",
-        "0"
+        "0",
+        "1"
     );
 
 
@@ -229,7 +238,7 @@ INSERT INTO machine_data_stat (
     mach_num, mach_descrip, mach_location, image_to_use,
     random_wt_running, random_wt_fault_gen, random_wt_fault_dur,
     mach_stat_code, fault_time, fault_time_unix, fault_code, fault_descrip,
-    initiated_by, man_ovr, man_clock_tics
+    initiated_by, man_ovr, man_clock_tics, disp_mini
     ) VALUES (
         "10",
         "3D Printer #01",
@@ -245,10 +254,34 @@ INSERT INTO machine_data_stat (
         " ",
         "0",
         "0",
-        "0"
+        "0",
+        "1"
     );
 
 
+INSERT INTO machine_data_stat (
+    mach_num, mach_descrip, mach_location, image_to_use,
+    random_wt_running, random_wt_fault_gen, random_wt_fault_dur,
+    mach_stat_code, fault_time, fault_time_unix, fault_code, fault_descrip,
+    initiated_by, man_ovr, man_clock_tics, disp_mini
+    ) VALUES (
+        "99",
+        "update time",
+        " ",
+        "3Dprinter_01.jpg",
+        "100",
+        "03",
+        "50",
+        "0",
+        "2020-01-01 07:00:00",
+        "0",
+        "0",
+        " ",
+        "0",
+        "0",
+        "0",
+        "0"
+);        
 
 
 INSERT INTO rt_data (

@@ -81,6 +81,7 @@ CREATE TABLE machine_data_stat (
     initiated_by INT,
     man_ovr INT,
     man_clock_tics INT,
+    disp_mini BOOLEAN,
     PRIMARY KEY (mach_num)
 );
 

@@ -69,16 +69,22 @@
 				<div class="row">
 				</div>
 				<!-- Status Output -->
+				<div id="outputDiv_head" class="row">
+					<h5>click on picture for more information</h5>
+				</div>
 				<div id="outputDiv" class="row">
-					{{#machStatObj}}
-					<div id="M{{mach_num}}" class="statusOff machPic" data-pic="{{mach_num}}">
-						<h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{mach_num}}</h3>
-						<img src="/images/Blank_01.jpg" class="imageBlank">
-						<img src="/images/{{image_to_use}}" class="imageCNCsmall">
-						<h5>&nbsp;&nbsp;{{mach_location}}</h5>
-					</div>
-					{{/machStatObj}}
+						{{#machStatObj}}
+						<div id="M{{mach_num}}" class="statusOff machPic" data-pic="{{mach_num}}">
+							<h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{mach_num}}</h3>
+							<img src="/images/Blank_01.jpg" class="imageBlank">
+							<img src="/images/{{image_to_use}}" class="imageCNCsmall">
+							<h5>&nbsp;&nbsp;{{mach_location}}</h5>
+						</div>
+						{{/machStatObj}}
 				</div>	
+				<div id="outputDiv_foot" class="row">
+					<h5>click on picture for more information</h5>
+				</div>
 				<!-- Machine Data Output -->
 				<div id="machineDiv" class="row">
 				</div>	
@@ -187,6 +193,10 @@
 				case 0: 
 					$('#outputDiv').removeClass('showDiv');
 					$('#outputDiv').addClass('hideDiv');
+					$('#outputDiv_head').removeClass('showDiv');
+					$('#outputDiv_head').addClass('hideDiv');
+					$('#outputDiv_foot').removeClass('showDiv');
+					$('#outputDiv_foot').addClass('hideDiv');
 					$('#machineDiv').removeClass('showDiv');
 					$('#machineDiv').addClass('hideDiv');
 					dispType = 0;
@@ -194,6 +204,10 @@
 				case 1:
 					$('#outputDiv').removeClass('hideDiv');
 					$('#outputDiv').addClass('showDiv');
+					$('#outputDiv_head').removeClass('hideDiv');
+					$('#outputDiv_head').addClass('showDiv');
+					$('#outputDiv_foot').removeClass('hideDiv');
+					$('#outputDiv_foot').addClass('showDiv');
 					$('#machineDiv').removeClass('showDiv');
 					$('#machineDiv').addClass('hideDiv');
 					dispType = 1;
@@ -201,6 +215,10 @@
 				case 2:
 					$('#outputDiv').removeClass('showDiv');
 					$('#outputDiv').addClass('hideDiv');
+					$('#outputDiv_head').removeClass('showDiv');
+					$('#outputDiv_head').addClass('hideDiv');
+					$('#outputDiv_foot').removeClass('showDiv');
+					$('#outputDiv_foot').addClass('hideDiv');
 					$('#machineDiv').removeClass('hideDiv');
 					$('#machineDiv').addClass('showDiv');
 					dispType = 2;
@@ -229,6 +247,7 @@
 			  var url = "/api/read-rt-data";
 			  $.post(url, dataOut, function(data) {
 				console.log("got read result");
+				console.log(data);
 				if (dispType==1) {
 					//machine list
 					for (var i=0; i<data.length; i++) {

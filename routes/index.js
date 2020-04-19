@@ -390,13 +390,15 @@ router.get('/monitor_read', function(req, res, next) {
             connection.query(query2, [], function(err, response) {
                 for (var i = 0; i < response.length; i++) {
                     //loop thru all of the responses
-                    dataOutput.push(new outputObj(
-                        response[i].mach_num,
-                        response[i].mach_location,
-                        response[i].image_to_use
-                    ));
-                    console.log("mach = " + response[i].mach_num);
-                    console.log("image = " + response[i].image_to_use);
+                    if (response[i].disp_mini == 1) {
+                        dataOutput.push(new outputObj(
+                            response[i].mach_num,
+                            response[i].mach_location,
+                            response[i].image_to_use
+                        ));
+                        console.log("mach = " + response[i].mach_num);
+                        console.log("image = " + response[i].image_to_use);
+                    };
                 };
                 //res.sendStatus(200).end();  
                 res.render('monitor_read', { machStatObj: dataOutput });

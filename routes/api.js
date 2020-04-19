@@ -644,7 +644,7 @@ router.post('/read-rt-data', function(req, res, next) {
             //want all of the machines
             var query2 = "SELECT * FROM rt_data";
         } else { //{SELECT * FROM event_bytime WHERE on_time_utc >= ? AND on_time_utc <= ?
-            var query2 = "SELECT * FROM machine_data_stat WHERE mach_num='" + searchMach + "'";
+            var query2 = "SELECT * FROM machine_data_stat WHERE mach_num='" + searchMach + "' OR mach_num='99'";
         };
         connection.query(query2, [], function(err, response) {
             if (searchMach == "-99") {
@@ -652,13 +652,15 @@ router.post('/read-rt-data', function(req, res, next) {
                     //loop thru all of the responses
                     if (response[i].mach_num == "99") {
                         updateDate_int = parseInt(response[i].mach_stat_code);
+                        console.log("read-rt update int = " + updateDate_int);
                         updateDate = moment(updateDate_int);
                         updateDateStr = updateDate.format("HH:mm:ss MM/DD/YYYY");
+                        console.log("read rt update date = " + updateDateStr);
                         dataOutput.push(new outputObj(
                             "99",
                             updateDateStr,
                             "00",
-                            " "
+                            "upd"
                         ));
                     } else {
                         dataOutput.push(new outputObj(
@@ -672,20 +674,36 @@ router.post('/read-rt-data', function(req, res, next) {
             } else {
                 //* console.log(response[0].mach_descrip);
                 //want output for a single machine
-                dataOutput.push(new outputObj2(
-                    response[0].mach_num,
-                    response[0].mach_descrip,
-                    response[0].mach_location,
-                    response[0].image_to_use,
-                    response[0].mach_stat_code,
-                    response[0].fault_time,
-                    response[0].fault_time_unix,
-                    response[0].fault_code,
-                    response[0].fault_descrip,
-                    response[0].initiated_by,
-                    response[0].man_ovr,
-                    response[0].man_clock_tics
-                ));
+                for (var i = 0; i < response.length; i++) {
+                    if (response[i].mach_num == "99") {
+                        updateDate_int = parseInt(response[i].mach_stat_code);
+                        console.log("read-rt update int = " + updateDate_int);
+                        updateDate = moment(updateDate_int);
+                        updateDateStr = updateDate.format("HH:mm:ss MM/DD/YYYY");
+                        console.log("read rt update date = " + updateDateStr);
+                        dataOutput.push(new outputObj(
+                            "99",
+                            updateDateStr,
+                            "00",
+                            "upd"
+                        ));
+                    } else {
+                        dataOutput.push(new outputObj2(
+                            response[0].mach_num,
+                            response[0].mach_descrip,
+                            response[0].mach_location,
+                            response[0].image_to_use,
+                            response[0].mach_stat_code,
+                            response[0].fault_time,
+                            response[0].fault_time_unix,
+                            response[0].fault_code,
+                            response[0].fault_descrip,
+                            response[0].initiated_by,
+                            response[0].man_ovr,
+                            response[0].man_clock_tics
+                        ));
+                    };
+                };
             };
 
             //calculate the time difference
@@ -767,7 +785,12 @@ function simPulse() {
         currDate = moment();
         currDateUnix = moment.unix(currDate);
         currDateUnix = moment().valueOf();
-        _machDataStat.fault_time = currDate.format("HH:mm:ss  MM/DD/YYYY");
+        if (_machDataStat.mach_num === "99") {
+            _machDataStat.fault_time = currDate.format("YYYY-MM-DD  HH:mm a");
+            _machDataStat.mach_stat_code = currDateUnix;
+        } else {
+            _machDataStat.fault_time = currDate.format("HH:mm:ss  MM/DD/YYYY");
+        };
         _machDataStat.fault_time_unix = currDateUnix;
     };
 
@@ -775,6 +798,7 @@ function simPulse() {
     async function writeUpdates() {
         //async function to handle all of the writes to the database
     };
+
 
     var querySim = "SELECT * FROM machine_data_stat";
     connection.query(querySim, [], function(err, respMachData) {
@@ -806,6 +830,7 @@ function simPulse() {
                     simUpdNeeded = 1;
                     machDataUpdate.fault_code = 0;
                     machDataUpdate.fault_descrip = "upd";
+                    machDataUpdate.mach_stat_code = mstat_running;
                     updateFaultDate(machDataUpdate);
                     break;
                 case mstat_notrunning:
@@ -856,30 +881,46 @@ function simPulse() {
                     };
                     break;
             };
+
+            console.log("loop " + i + " mach=" + respMachData[i].mach_num);
+            if (respMachData[i].mach_num == "99") {
+                //it's the upload time so make it be the current time
+                updateFaultDate(machDataUpdate);
+                //machDataUpdate.mach_stat_code = mstat_running;
+                machDataUpdate.fault_code = 0;
+                machDataUpdate.fault_descrip = "upd";
+                simUpdNeeded = 1;
+                console.log("status update: " + machDataUpdate.mach_stat_code);
+            };
+
             if (simUpdNeeded == 1) {
                 //there is an update needed to data_stat and RT
                 console.log("*** sim update needed. fault= " + machDataUpdate.fault_code);
                 let query6 = "SELECT * FROM fault_codes WHERE fault_code='" + machDataUpdate.fault_code + "'";
                 connection.query(query6, [], function(err, response) {
                     //now, I know the fault code
-                    machDataUpdate.fault_descrip = response[0].fault_descrip;
-                    console.log("*** sim from query: ");
-                    console.log(response[0].fault_descrip);
-                    console.log(response[0].fault_code);
+                    if ((machDataUpdate.mach_num != "99") && (machDataUpdate.mach_num != "98")) {
+                        //not a status update
+                        machDataUpdate.fault_descrip = response[0].fault_descrip;
+                        console.log("*** sim from query: ");
+                        console.log(response[0].fault_descrip);
+                        console.log(response[0].fault_code);
 
-                    //should the machine be stopped ?
-                    if (response[0].status_change == 0) {
-                        //stop the machine
-                        machDataUpdate.mach_stat_code = mstat_notrunning;
-                    } else {
-                        if (response[0].status_change == 1) {
-                            //start the machine
-                            machDataUpdate.mach_stat_code = mstat_running;
+                        //should the machine be stopped ?
+                        if (response[0].status_change == 0) {
+                            //stop the machine
+                            machDataUpdate.mach_stat_code = mstat_notrunning;
                         } else {
-                            //there is no status change, but there is a warning, set it to warning
-                            if (machDataUpdate.mach_stat_code == mstat_running) machDataUpdate.mach_stat_code = mstat_warning;
+                            if (response[0].status_change == 1) {
+                                //start the machine
+                                machDataUpdate.mach_stat_code = mstat_running;
+                            } else {
+                                //there is no status change, but there is a warning, set it to warning
+                                if (machDataUpdate.mach_stat_code == mstat_running) machDataUpdate.mach_stat_code = mstat_warning;
+                            };
                         };
                     };
+
                     //now can write to data_stat and rt
                     let query7 = "UPDATE rt_data SET mach_stat_code=?, fault_code=?, fault_descrip=? WHERE mach_num=?";
                     connection.query(query7, [
