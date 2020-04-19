@@ -396,14 +396,14 @@
 							};
 
 							hTag4.append(faultCodeStr);
-							var brTag_08 = $('<br/>');
-							hTag4.append(brTag_08);
+							var brTag_11 = $('<br/>');
+							hTag4.append(brTag_11);
 							hTag4.append(faultDescStr);
-							var brTag_09 = $('<br/>');
-							hTag4.append(brTag_09);
+							var brTag_12 = $('<br/>');
+							hTag4.append(brTag_12);
 							hTag4.append(faultTimeStr);
-							var brTag_10 = $('<br/>');
-							hTag4.append(brTag_10);
+							var brTag_13 = $('<br/>');
+							hTag4.append(brTag_13);
 							hTag4.append(faultInitByStr);
 
 							mainDiv.append(hTag4);
