@@ -795,9 +795,11 @@ function simPulse() {
     };
 
 
+    /*
     async function writeUpdates() {
         //async function to handle all of the writes to the database
-    };
+	};
+	*/
 
 
     var querySim = "SELECT * FROM machine_data_stat";
