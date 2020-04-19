@@ -2,7 +2,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<title>WCO Production Monitor</title>
+		<title>Production Monitor RT</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 
 		<!--  Designed by Rich Budek @  www.RichBudek.com -->
@@ -119,17 +119,16 @@
 		<!-- Modal about about -->
 		<div id="modal-about" class="modal">
 			<div class="modal-content">
-				<h3>WCO Production Monitoring</h3>
+				<h3>Production Monitoring RT</h3>
 				<div class="divider"></div>
 				<h4>
 					<br/>This screen displays the production machinery real time from anywhere
 					in the world.  The purpose is that during social distancing guidelines the 
 					production workers on monitored equipment can step away and still keep the 
-					production lines running.
+					production lines running.  
 					<br/>
 					<br/>
-					<br/>Software developed by Rich Budek by reusing code from other projects 
-					for other users. 
+					<br/>Software developed by Rich Budek.
 					<br/>
 					<br/>
 				</h4>
