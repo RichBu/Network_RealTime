@@ -61,10 +61,12 @@
 					<br/>
 					<button id="btn-stopRead" class="calcButton btn btn-primary" >Stop Reading</button>	
 					<br/>
+					<!--  use simulate button for manually debugging 
 					<button id="btn-simul" class="calcButton btn btn-primary" >Simulate</button>	
 					<br/>
+					-->
 					<br/>
-					<br/><h3>&nbsp</h3>
+					<br/><h3>&nbsp;</h3>
 				</div>				
 				<div class="row">
 				</div>
@@ -124,7 +126,7 @@
 				<h3>Production Monitoring</h3>
 				<div class="divider"></div>
 				<h4>
-					<br/>This page keeps polling the backend every 10 seconds once you 
+					<br/>This page keeps polling the backend every 5 seconds once you 
 					press the Start Reading button.  It will keep reading until you 
 					press the Stop Reading button.  To conserve battery power and data 
 					usage, press the Stop Reading button
@@ -246,157 +248,156 @@
 			  var dataOut = { machNum: machStr, testfield: "00" };
 			  var url = "/api/read-rt-data";
 			  $.post(url, dataOut, function(data) {
-				console.log("got read result");
-				console.log(data);
-				if (dispType==1) {
-					//machine list
-					for (var i=0; i<data.length; i++) {
-						if (data[i].mach_num.trim() == "98" || data[i].mach_num.trim() == "99") {
-							//this is the update time
-							if (data[i].mach_num.trim() == "98") {
-								//this is the difference
-								$("#diffUpdate").html("<h4>Hours since upload: " + data[i].mach_stat_code + "</h4>");
-							};
-							if (data[i].mach_num.trim() == "99") {
-								//this is the last update
-								$("#lastUpdate").html("<h4>Last upload: " + data[i].mach_stat_code + "</h4>");
-							};
-						} else {
+				//console.log("got read result");
+				//go thru the entire response date
+				for (var i=0; i<data.length; i++) {
+					if (data[i].mach_num.trim() == "98" || data[i].mach_num.trim() == "99") {
+						//this is the update time
+						if (data[i].mach_num.trim() == "98") {
+							//this is the difference
+							$("#diffUpdate").html("<h4>Hours : min : sec since upload: &nbsp;&nbsp;" + data[i].mach_stat_code + "</h4>");
+						};
+						if (data[i].mach_num.trim() == "99") {
+							//this is the last update
+							$("#lastUpdate").html("<h4>Last upload: " + data[i].mach_stat_code + "</h4>");
+						};
+					} else {
+						//it is not '99' nor '98'
+						if (dispType==1) {
 							//a machine update 
 							var idStr = "#M" + data[i].mach_num.trim();
 							$(idStr).removeClass();
 							var statusStr = "statusOff";
 							switch (data[i].mach_stat_code) {
 								case "00":
-						  			statusStr = "statusOff"; 
-						  			break;
+					  				statusStr = "statusOff"; 
+					  				break;
 								case "01":
 							  		statusStr = "statusOn";
-						  			break;
+					  				break;
 								case "03":
 							  		statusStr = "statusRun";
-						  			break;
+					  				break;
 								case "09":
 							  		statusStr = "statusHold";
-						  		break;    
+						  			break;    
 							};
 							$(idStr).addClass(statusStr);
-						};
-					};
-				} else {
-					//single machine
-					var mainDiv = $("#machineDiv").html("");
-					var hTag1 = $("<h3>");
-					hTag1.append('M' + data[0].mach_num);
-					hTag1.append("<br/>");
-					hTag1.append(data[0].mach_descrip);
-					hTag1.append("<br/>");
-					hTag1.append(data[0].mach_location);
-					hTag1.append("<br/");
-					var imgTag = $('<img src="'+'/images/' + data[0].image_to_use.trim() + '">');
-					imgTag.addClass("imageCNCbig");
+						} else {
+							//single machine
+							var mainDiv = $("#machineDiv").html("");
+							var hTag1 = $("<h3>");
+							hTag1.append('M' + data[i].mach_num);
+							hTag1.append("<br/>");
+							hTag1.append(data[i].mach_descrip);
+							hTag1.append("<br/>");
+							hTag1.append(data[i].mach_location);
+							hTag1.append("<br/");
+							var imgTag = $('<img src="'+'/images/' + data[i].image_to_use + '">');
+							imgTag.addClass("imageCNCbig");
 
-					mainDiv.append(hTag1);
-					mainDiv.append(imgTag);
+							mainDiv.append(hTag1);
+							mainDiv.append(imgTag);
 
-					var spacesDown = $('<h4>');
-					var brTag_01 = $('<br/>');
-					var brTag_02 = $('<br/>');
-					var brTag_03 = $('<br/>');
-					var brTag_04 = $('<br/>');
-					var brTag_05 = $('<br/>');
-					spacesDown.append(brTag_01);
-					spacesDown.append(brTag_02);
-					spacesDown.append(brTag_03);
-					spacesDown.append(brTag_04);
-					spacesDown.append(brTag_05);
+							var spacesDown = $('<h4>');
+							var brTag_01 = $('<br/>');
+							var brTag_02 = $('<br/>');
+							var brTag_03 = $('<br/>');
+							var brTag_04 = $('<br/>');
+							var brTag_05 = $('<br/>');
+							spacesDown.append(brTag_01);
+							spacesDown.append(brTag_02);
+							spacesDown.append(brTag_03);
+							spacesDown.append(brTag_04);
+							spacesDown.append(brTag_05);
 
-					var hTag2 = $('<h5>');
-					hTag2.append('(click to close)');
-					var hTag3 = $('<h3>'); 
+							var hTag2 = $('<h5>');
+							hTag2.append('(click to close)');
+							var hTag3 = $('<h3>'); 
 
-					console.log(spacesDown);
-					mainDiv.append(spacesDown);
-					mainDiv.append(hTag2);
-					mainDiv.append(hTag3);
+							mainDiv.append(spacesDown);
+							mainDiv.append(hTag2);
+							mainDiv.append(hTag3);
 
-					var divTag = $('<div>');
-					divTag.attr('id', 'currStatus');
-					//var imgTag = $('<img src="'+'/images/Blank_01.jpg">');
-					//divTag.append(imgTag);
-					mainDiv.append(divTag);
+							var divTag = $('<div>');
+							divTag.attr('id', 'currStatus');
+							//var imgTag = $('<img src="'+'/images/Blank_01.jpg">');
+							//divTag.append(imgTag);
+							mainDiv.append(divTag);
 
-					var idStr = "#currStatus";
-					var statusStr = "statusOffFull";
-					var statusDec = "";  //description to print
-					$(idStr).removeClass(statusStr);
-					statusStr = "statusOnFull";
-					$(idStr).removeClass(statusStr);
-					statusStr = "statusRunFull";
-					$(idStr).removeClass(statusStr);
-					statusStr = "statusHoldFull";
-					$(idStr).removeClass(statusStr);
-
-					switch (data[0].mach_stat_code) {
-						case "00":
-						  	statusStr = "statusOffFull"; 
-							statusDesc = "off-line";
-						  	break;
-						case "01":
+							var idStr = "#currStatus";
+							var statusStr = "statusOffFull";
+							var statusDec = "";  //description to print
+							$(idStr).removeClass(statusStr);
 							statusStr = "statusOnFull";
-							statusDesc = "not running";
-						  	break;
-						case "03":
+							$(idStr).removeClass(statusStr);
 							statusStr = "statusRunFull";
-							statusDesc = "running";
-						  	break;
-						case "09":
+							$(idStr).removeClass(statusStr);
 							statusStr = "statusHoldFull";
-							statusDesc = "warning";
-						  	break;    
-					};
-					$(idStr).addClass(statusStr);
+							$(idStr).removeClass(statusStr);
 
-					//current status description
-					var hTag4 = $('<h4>')
-					hTag4.append(statusDesc);
+							switch (data[i].mach_stat_code) {
+								case "00":
+						  			statusStr = "statusOffFull"; 
+									statusDesc = "off-line";
+						  			break;
+								case "01":
+									statusStr = "statusOnFull";
+									statusDesc = "not running";
+						  			break;
+								case "03":
+									statusStr = "statusRunFull";
+									statusDesc = "running";
+						  			break;
+								case "09":
+									statusStr = "statusHoldFull";
+									statusDesc = "warning";
+						  			break;    
+							};
+							$(idStr).addClass(statusStr);
 
-					//fault code
-					var brTag_06 = $('<br/>');
-					var brTag_07 = $('<br/>');
-					hTag4.append(brTag_06);
-					hTag4.append(brTag_07);
+							//current status description
+							var hTag4 = $('<h4>')
+							hTag4.append(statusDesc);
 
-					var faultCodeStr = "fault code: " + data[0].fault_code;
-					var faultDescStr = "fault desc: " + data[0].fault_descrip;
-					var faultTimeStr = "fault time: " + data[0].fault_time;
-					var faultInitByStr = "";
-					switch (data[0].initiated_by) {
-						case 0:
-							faultInitByStr = "automatic";
-							break;
-						case 1:
-							faultInitByStr = "simulator";
-							break;
-						case 2:
-							faultInitByStr = "manual";
-							break;
-					};
+							//fault code
+							var brTag_06 = $('<br/>');
+							var brTag_07 = $('<br/>');
+							hTag4.append(brTag_06);
+							hTag4.append(brTag_07);
 
-					hTag4.append(faultCodeStr);
-					var brTag_08 = $('<br/>');
-					hTag4.append(brTag_08);
-					hTag4.append(faultDescStr);
-					var brTag_09 = $('<br/>');
-					hTag4.append(brTag_09);
-					hTag4.append(faultTimeStr);
-					var brTag_10 = $('<br/>');
-					hTag4.append(brTag_10);
-					hTag4.append(faultInitByStr);
+							var faultCodeStr = "fault code: " + data[i].fault_code;
+							var faultDescStr = "fault desc: " + data[i].fault_descrip;
+							var faultTimeStr = "fault time: " + data[i].fault_time;
+							var faultInitByStr = "generated: ";
+							switch (data[i].initiated_by) {
+								case 0:
+									faultInitByStr = faultInitByStr + "automatic";
+									break;
+								case 1:
+									faultInitByStr = faultInitByStr + "simulator";
+									break;
+								case 2:
+									faultInitByStr = faultInitByStr + "manual";
+									break;
+							};
 
-					mainDiv.append(hTag4);
-				};
-			  });
+							hTag4.append(faultCodeStr);
+							var brTag_08 = $('<br/>');
+							hTag4.append(brTag_08);
+							hTag4.append(faultDescStr);
+							var brTag_09 = $('<br/>');
+							hTag4.append(brTag_09);
+							hTag4.append(faultTimeStr);
+							var brTag_10 = $('<br/>');
+							hTag4.append(brTag_10);
+							hTag4.append(faultInitByStr);
+
+							mainDiv.append(hTag4);
+						}; //it is a single machine 
+					}; //if statement for mach_num = '99' or '98'
+				}; //for loop to step thru all of the output
+			  });  //post command
 		};  // readData function
 
 
