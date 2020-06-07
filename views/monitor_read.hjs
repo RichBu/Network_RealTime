@@ -245,7 +245,7 @@
 			  var machStr = "-99";
 			  if (dispType==2) {
 				//displaying just a single machine
-				machStr =  currMach.toString();
+				machStr =  currMach;
 			  };
 
 			  var dataOut = { machNum: machStr, testfield: "00" };
