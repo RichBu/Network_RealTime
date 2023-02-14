@@ -50,7 +50,9 @@ app.post('/save_ip/:action_done', (req, res) => {
     const _action_done = req.params.action_done;
     const ip = req.clientIPaddr;
     // const ip = req.getClientIp;
-    if (ip == '::1') {
+    // RPB-Temp  override the IP location for now to get it to work
+    const skipIp = true;
+    if (ip == '::1' || skipIp ) {
         console.log('local ip');
         let ipRec = new ipRecStoreType(
             moment().format("YYYY-MM-DD  HH:mm a"),
