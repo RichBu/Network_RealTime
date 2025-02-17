@@ -1,7 +1,21 @@
-// Set up MySQL connection.
-var mysql = require("mysql");
-var app = require('./app.js');
+// connection to mySql
 
+var app = require('./app.js');
+var mysql = require('mysql2');
+
+/*
+connection = mysql.createConnection({
+    port:3306,
+    //host: '0.0.0.0',  //works on local
+    host: 'portfolio-mysql-db',
+    user: 'root',
+    password: 'RootPass',
+    database: 'PORTFOLIO_DB'
+    //database: 'z2znazc687xl2iem'
+});
+
+*/
+//var connection;
 
 if (process.env.JAWSDB_URL) {
     connection = mysql.createConnection(process.env.JAWSDB_URL);
@@ -9,10 +23,11 @@ if (process.env.JAWSDB_URL) {
     connection = mysql.createConnection({
         connectionLimit: 20,
         port: 3306,
-        host: 'g3v9lgqa8h5nq05o.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
-        user: 'qdfihl6im7aev8c5',
-        password: 'nl0hwoi9znpbu3z8',
-        database: 'h1fnnkvamtvh9i22'
+        host: '146.71.78.196',
+        user: 'root',
+        password: 'RootPass',
+        database: 'PORTFOLIO_DB'
+        //database: 'network_rt'
     });
 };
 
@@ -28,6 +43,16 @@ connection = mysql.createConnection({
     //database: 'z2znazc687xl2iem'
 });
 */
+
+connection = mysql.createConnection({
+    port:3306,
+    //host: '0.0.0.0',  //works on local
+    host: '146.71.78.196',
+    user: 'root',
+    password: 'RootPass',
+    database: 'NETWORK_RT'
+});
+
 
 
 

@@ -1,12 +1,12 @@
 
 
-USE h1fnnkvamtvh9i22;
+USE NETWORK_RT;
 
 /*DROP TABLE machine_data_stat;
 */
 
 
-USE h1fnnkvamtvh9i22;
+USE NETWORK_RT;
 
 
 INSERT INTO machine_data_stat (

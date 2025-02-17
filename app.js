@@ -142,6 +142,7 @@ app.set('view engine', 'hjs');
 // no longer need cookieParser ?
 // var cookieParser = require('cookie-parser');
 var session = require('express-session'); //allows user to stay logged in
+const connection = require('./connection');
 //allow sessions
 app.use(session({ secret: 'app', cookie: { maxAge: 60000 * 1000 * 1000 }, resave: true, saveUninitialized: false }));
 //app.use(cookieParser());
@@ -176,6 +177,14 @@ app.use(bodyParser.json());
 //	Parse application/x-www-form-urlencoded
 //
 app.use(bodyParser.urlencoded({ extended: false }));
+
+// pass the db connection to all other modules
+/*
+app.use ((req, res, next) => {
+    req.connection = connection;
+    next();
+});
+*/
 
 //////////////////////////////////////////////////////////////////////////////
 
@@ -277,5 +286,9 @@ function force_https(req, res, next) {
     next();
 }
 
+//listen for the port
+app.listen(PORT, ()=> {
+    console.log(`Server listening on port ${PORT}`);
+});
 
 module.exports = app;

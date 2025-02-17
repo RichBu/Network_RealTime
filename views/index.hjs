@@ -68,10 +68,15 @@
 						<form id="" action="" method="post">
 						</form>
 					</div>
+					<!--
+					<div class="popup" onclick="popupFunction()">Click me to toggle the popup!
+  						<span class="popuptext" id="myPopup">A Simple Popup!</span>
+					</div>
+					-->
 					<div class="row">
-						<button id="bttnReports" type="" class="calcButton btn btn-primary" value="bttnLoggedData">Reports</button>
-						<form id="" action="" method="post">
-						</form>
+						<div id="" type="" class="calcButton btn btn-primary popup" value="bttnLoggedData" onclick="popupFunction()">Reports
+  							<span class="popuptext" id="myPopup">Not storing any data, so no reports</span>
+						</div>
 					</div>
 					<hr/>
 					<div class="row">
@@ -173,6 +178,11 @@
 			$(modAbout).css("display", "none");		
 			window.location.reload(false);
 		};
+
+		function popupFunction() {
+  			var popup = document.getElementById("myPopup");
+  			popup.classList.toggle("show");
+		}
 
   	    $(document).ready(function () {
 		  //document is ready, so move the incoming data over

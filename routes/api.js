@@ -550,6 +550,60 @@ router.post('/update-rt-data', function(req, res, next) {
 
 
 
+router.get('/reset-rt-data', function(req, res, next) {
+    console.log("hit route : /reset-rt-data");
+
+    var querySim = "SELECT * FROM machine_data_stat";
+    connection.query(querySim, [], function(err, respMachData) {
+        const mstat_running = "03";
+
+        for (let i = 0; i < respMachData.length; i++) {
+            //set the status to running
+            respMachData[i].mach_stat_code = mstat_running;
+            respMachData[i].fault_code = 0;
+            respMachData[i].fault_descrip = "";
+            var machDataUpdate = new machDataObj(respMachData[i].mach_num,
+                respMachData[i].mach_stat_code,
+                respMachData[i].fault_time,
+                respMachData[i].fault_time_unix,
+                respMachData[i].fault_code,
+                respMachData[i].fault_descrip,
+                respMachData[i].initiated_by,
+                respMachData[i].man_ovr,
+                respMachData[i].man_clock_tics
+            );
+            
+            //now can write to data_stat and rt
+            let query7 = "UPDATE rt_data SET mach_stat_code=?, fault_code=?, fault_descrip=? WHERE mach_num=?";
+            connection.query(query7, [
+                machDataUpdate.mach_stat_code,
+                machDataUpdate.fault_code,
+                machDataUpdate.fault_descrip,
+                machDataUpdate.mach_num
+            ], function(err2, response2) {
+            }); //update rt_data
+
+            //updated rt_data, now do the data_stat
+
+            let query8 = "UPDATE machine_data_stat SET mach_stat_code=?, fault_code=?, fault_descrip=? ";
+            query8 = query8 + " WHERE mach_num=?";
+            connection.query(query8, [
+                machDataUpdate.mach_stat_code,
+                machDataUpdate.fault_code,
+                machDataUpdate.fault_descrip,
+                machDataUpdate.mach_num
+            ], function(err3, response3) {
+            });
+        };  //for loop
+        //all the updates are done 
+        res.render('index', {
+            base_url: process.env.BASE_URL
+        });
+
+    });
+});  //reset-rt-data
+
+
 //post route to retrieve RT data
 router.post('/read-rt-data', function(req, res, next) {
     const numMach = 9;
@@ -759,6 +813,18 @@ router.post('/read-rt-data', function(req, res, next) {
 }); //read-rt-data
 
 
+function machDataObj(_mach_num, _mach_stat_code, _fault_time, _fault_time_unix,
+    _fault_code, _fault_descrip, _initiated_by, _man_ovr, _man_clock_tics) {
+        this.mach_num = _mach_num,
+        this.mach_stat_code = _mach_stat_code,
+        this.fault_time = _fault_time,
+        this.fault_time_unix = _fault_time_unix,
+        this.fault_code = _fault_code,
+        this.fault_descrip = _fault_descrip,
+        this.initiated_by = _initiated_by,
+        this.man_ovr = _man_ovr,
+        this.man_clock_tics = _man_clock_tics
+};
 
 
 //simulation routines
@@ -766,9 +832,10 @@ function simPulse() {
     //this is executed every simulation cycle
     console.log("simulation pulse");
 
+    /*
     function machDataObj(_mach_num, _mach_stat_code, _fault_time, _fault_time_unix,
         _fault_code, _fault_descrip, _initiated_by, _man_ovr, _man_clock_tics) {
-        this.mach_num = _mach_num,
+            this.mach_num = _mach_num,
             this.mach_stat_code = _mach_stat_code,
             this.fault_time = _fault_time,
             this.fault_time_unix = _fault_time_unix,
@@ -778,6 +845,7 @@ function simPulse() {
             this.man_ovr = _man_ovr,
             this.man_clock_tics = _man_clock_tics
     };
+    */
 
 
     function updateFaultDate(_machDataStat) {
@@ -931,7 +999,8 @@ function simPulse() {
                         machDataUpdate.fault_descrip,
                         machDataUpdate.mach_num
                     ], function(err2, response2) {
-                        //updated rt_data, now do the data_stat
+                    }); //update rt_data
+                    //updated rt_data, now do the data_stat
                         let query8 = "UPDATE machine_data_stat SET mach_stat_code=?, fault_code=?, fault_descrip=?,";
                         query8 = query8 + " fault_time=?, fault_time_unix=?, initiated_by=?, man_ovr=?, man_clock_tics=? ";
                         query8 = query8 + "  WHERE mach_num=?";
@@ -948,7 +1017,6 @@ function simPulse() {
                         ], function(err2, response2) {
                             //all the updates are done 
                         });
-                    }); //update rt_data
                 }); //read fault descrip
             }; //simulation update is needed
         }; //for loop for all the data_stat records

@@ -63,11 +63,18 @@ class userLogRecStoreType {
 };
 
 
-router.get('/', function(req, res, next) {
+router.get('/home', function(req, res, next) {
     console.log('saving the IP address');
     let _action_done;
     let ip;
     let clientIP;
+
+
+    /*
+    res.render('index', {
+        base_url: process.env.BASE_URL
+    });
+    */
 
 
     if (req.session.logged_in === true) {
@@ -193,7 +200,8 @@ router.get('/', function(req, res, next) {
                     });
                 })
         };
-    };
+    }; // data logging
+    
 
 
     //
@@ -348,6 +356,7 @@ router.get('/monitor_read', function(req, res, next) {
     //userLoggedIn = true;
     let skipLogin = true;
 
+
     if (req.session.logged_in == true) {
         userLoggedIn = true;
     } else {
@@ -368,6 +377,7 @@ router.get('/monitor_read', function(req, res, next) {
         );
 
         let query = "INSERT INTO user_log (time_str, ip_addr, loginName, password, fullName, action_done) VALUES (?, ?, ?, ?, ?, ? )";
+        /*
         connection.query(query, [
             userLogRec.timeStr,
             userLogRec.clientIP,
@@ -376,8 +386,10 @@ router.get('/monitor_read', function(req, res, next) {
             userLogRec.fullName,
             userLogRec.action_done
         ], function(err, response) {
+            */
             //what to do after the log has been written
             console.log('wrote to ip log-logged in');
+            console.log('getting machine data');
 
             //read all the machine data
             function outputObj(_mach_num, _mach_location, _image_to_use) {
@@ -387,7 +399,13 @@ router.get('/monitor_read', function(req, res, next) {
             };
 
             var query2 = "SELECT * FROM machine_data_stat";
+            console.log("connection:");
+            console.log(connection);
             connection.query(query2, [], function(err, response) {
+                console.log("queried ...");
+                console.log(err)
+                console.log("response:");
+                console.log(response);
                 for (var i = 0; i < response.length; i++) {
                     //loop thru all of the responses
                     if (response[i].disp_mini == 1) {
@@ -403,8 +421,9 @@ router.get('/monitor_read', function(req, res, next) {
                 //res.sendStatus(200).end();  
                 res.render('monitor_read', { machStatObj: dataOutput });
             });
-        });
-    } else {
+    //    }); //successful ip write
+        
+    } /* else {
         //not logged in so save the ip address
         _action_done = "root-not logged in";
         ip = req.clientIPaddr;
@@ -499,7 +518,10 @@ router.get('/monitor_read', function(req, res, next) {
                     });
                 })
         };
-    };
+    };  //else for not logged in
+    */
+
+
 }); //monitor_read path
 
 
