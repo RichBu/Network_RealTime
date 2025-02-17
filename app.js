@@ -1,3 +1,4 @@
+require('dotenv').config();
 let path = require('path');
 let logger = require('morgan');
 let express = require('express');

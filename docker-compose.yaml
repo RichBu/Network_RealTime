@@ -1,0 +1,23 @@
+#version: "3.7"
+networks:
+  main:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/24
+      driver: default
+#volumes:
+#  mysql-data:
+services:
+  network-rt:
+    container_name: network-rt
+    build: 
+      context: .
+      dockerfile: Dockerfile-network-rt
+    image: img-network-rt
+    networks:
+      main:
+        ipv4_address: 172.20.0.7   
+    ports:
+      - "3001:3000"
+      - "443:443"

@@ -63,18 +63,11 @@ class userLogRecStoreType {
 };
 
 
-router.get('/home', function(req, res, next) {
+router.get('/', function(req, res, next) {
     console.log('saving the IP address');
     let _action_done;
     let ip;
     let clientIP;
-
-
-    /*
-    res.render('index', {
-        base_url: process.env.BASE_URL
-    });
-    */
 
 
     if (req.session.logged_in === true) {
