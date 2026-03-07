@@ -20,6 +20,11 @@ NODE_ENV= (development, production)
 JAWSDB_URL=
 BASE_URL =  (used in index.js, that is used for the front end )
 PORT = (port for the backend)
+MYSQL_PORT
+MYSQL_HOST
+MYSQL_USER
+MYSQL_PASSWORD
+MYSQL_DATABASE
 
 
 after downloading
