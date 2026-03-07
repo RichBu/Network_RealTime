@@ -555,6 +555,7 @@ router.get('/monitor_write', function(req, res, next) {
         );
 
         let query = "INSERT INTO user_log (time_str, ip_addr, loginName, password, fullName, action_done) VALUES (?, ?, ?, ?, ?, ? )";
+        /*
         connection.query(query, [
             userLogRec.timeStr,
             userLogRec.clientIP,
@@ -569,6 +570,7 @@ router.get('/monitor_write', function(req, res, next) {
             //res.sendStatus(200).end();  
             res.render('monitor_write', { machStatObj: dataOutput });
         });
+        */
     } else {
         //not logged in so save the ip address
         _action_done = "root-not logged in";
@@ -595,6 +597,7 @@ router.get('/monitor_write', function(req, res, next) {
                 _action_done
             );
             var query = "INSERT INTO ip_log (time_str, ip_addr, ip_query, as_field, country, countryCode, city, region, regionName, zip, timezone, action_done) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
+            /*  
             connection.query(query, [
                 ipRec.timeStr,
                 ipRec.clientIP,
@@ -617,6 +620,7 @@ router.get('/monitor_write', function(req, res, next) {
                     base_url: process.env.BASE_URL
                 });
             });
+            */
         } else {
             //let ip = req.clientIPaddr;
             //let clientIP = requestIp.getClientIp(req);
@@ -642,6 +646,7 @@ router.get('/monitor_write', function(req, res, next) {
                     );
                     console.log('before insert query');
                     var query = "INSERT INTO ip_log (time_str, ip_addr, ip_query, as_field, country, countryCode, city, region, regionName, zip, timezone, action_done) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
+                    /*
                     connection.query(query, [
                         ipRec.timeStr,
                         ipRec.clientIP,
@@ -662,6 +667,7 @@ router.get('/monitor_write', function(req, res, next) {
                         });
                         //res.sendStatus(200).end();
                     });
+                    */
                 })
         };
     };
