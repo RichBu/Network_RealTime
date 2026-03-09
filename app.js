@@ -193,7 +193,7 @@ app.use('/', require('./routes/index'));
 app.use('/api', require('./routes/api'));
 app.use('/reports', require('./routes/reports'));
 app.use('/video', require('./routes/video'));
-app.use('/calcoval', require('./routes/calcoval'));
+//app.use('/calcoval', require('./routes/calcoval'));
 
 //////////////////////////////////////////////////////////////////////////////
 
@@ -202,14 +202,16 @@ app.use('/calcoval', require('./routes/calcoval'));
 //  If nonce of the above routes matches, we create an error to let the
 //  user know that the URL accessed doesn't match anything.
 //
+/*
 app.use(function(req, res, next) {
-
+    console.log("in app.use");
     let err = new Error('Not Found');
     err.status = 404;
 
     next(err);
 
 });
+*/
 
 //
 //  Display any error that occurred during the request.

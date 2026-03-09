@@ -193,7 +193,7 @@
 		var displayDiv = function(divType) {
 			//turn on divs based on value passed in
 			//0=all off  1=all  2=single machine
-			console.log("display " + divType);
+			//console.log("display " + divType);
 			switch (divType) {
 				case 0: 
 					$('#outputDiv').removeClass('showDiv');
@@ -285,6 +285,8 @@
 							  		statusStr = "statusHold";
 						  			break;    
 							};
+							//debug 
+							//console.log("id = ",idStr, "class =", statusStr );
 							$(idStr).addClass(statusStr);
 						} else {
 							//single machine

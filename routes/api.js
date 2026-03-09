@@ -9,6 +9,7 @@ let express = require('express');
 let router = express.Router();
 
 var connection = require('../connection');
+var mysql = require('mysql2');
 
 let fileLoc = './public/videos/';
 
@@ -895,6 +896,12 @@ function simPulse() {
                 respMachData[i].man_ovr,
                 respMachData[i].man_clock_tics
             );
+            //need to trim fault_descrip to smaller size for now
+            let tempDesc = "";
+            tempDesc = respMachData[i].fault_descrip
+            respMachData[i].fault_descrip = tempDesc.slice(0,19);
+            //debug
+            //console.log("i=", i, " stat code=", respMachData[i].mach_stat_code);
             switch (respMachData[i].mach_stat_code) {
                 case mstat_offline:
                     simUpdNeeded = 1;
@@ -916,6 +923,8 @@ function simPulse() {
                 case mstat_running:
                     //it's runnig so see if a fault should be generated
                     numRand = Math.random() * 100.0;
+                    //debug
+                    //console.log("i=",i," numRand=", numRand, " rand wt=", respMachData[i].random_wt_running);
                     if (numRand <= respMachData[i].random_wt_running) {
                         //machine to keep running
                         simUpdNeeded = 0;
@@ -993,30 +1002,46 @@ function simPulse() {
 
                     //now can write to data_stat and rt
                     let query7 = "UPDATE rt_data SET mach_stat_code=?, fault_code=?, fault_descrip=? WHERE mach_num=?";
-                    connection.query(query7, [
+                    let values7 = [
                         machDataUpdate.mach_stat_code,
                         machDataUpdate.fault_code,
                         machDataUpdate.fault_descrip,
                         machDataUpdate.mach_num
-                    ], function(err2, response2) {
+                    ];
+                    let formattedSql7 = mysql.format(query7,values7);
+                    //console.log("query7 formatted str: ", formattedSql7)
+                    connection.query(query7, values7, function(err2, response2) {
+                        //debug
+                        //console.log("query7 is finished");
+                        //console.log("err is :", err2)
+                        //console.log("response is:", response2); 
                     }); //update rt_data
+
                     //updated rt_data, now do the data_stat
-                        let query8 = "UPDATE machine_data_stat SET mach_stat_code=?, fault_code=?, fault_descrip=?,";
-                        query8 = query8 + " fault_time=?, fault_time_unix=?, initiated_by=?, man_ovr=?, man_clock_tics=? ";
-                        query8 = query8 + "  WHERE mach_num=?";
-                        connection.query(query8, [
-                            machDataUpdate.mach_stat_code,
-                            machDataUpdate.fault_code,
-                            machDataUpdate.fault_descrip,
-                            machDataUpdate.fault_time,
-                            machDataUpdate.fault_time.unix,
-                            machDataUpdate.initiated_by,
-                            machDataUpdate.man_ovr,
-                            machDataUpdate.man_clock_tics,
-                            machDataUpdate.mach_num
-                        ], function(err2, response2) {
-                            //all the updates are done 
-                        });
+                    let query8 = "UPDATE machine_data_stat SET mach_stat_code=?, fault_code=?, fault_descrip=?,";
+                    query8 = query8 + " fault_time=?, fault_time_unix=?, initiated_by=?, man_ovr=?, man_clock_tics=? ";
+                    query8 = query8 + "  WHERE mach_num=?";
+                    let values8 = [
+                        machDataUpdate.mach_stat_code,
+                        machDataUpdate.fault_code,
+                        machDataUpdate.fault_descrip,
+                        machDataUpdate.fault_time,
+                        machDataUpdate.fault_time.unix,
+                        machDataUpdate.initiated_by,
+                        machDataUpdate.man_ovr,
+                        machDataUpdate.man_clock_tics,
+                        machDataUpdate.mach_num
+                    ];
+
+                    let formatterSql8 = mysql.format(query8,values8);
+                    //console.log("query8 formatted str: ", formatterSql8);
+                    connection.query(query8, values8, function(err3, response3) {
+                        //all the updates are done 
+                        //debug
+                        //console.log("query8 is finished");
+                        //console.log("err is :", err3)
+                        //console.log("response is:", response3); 
+                    });
                 }); //read fault descrip
             }; //simulation update is needed
         }; //for loop for all the data_stat records

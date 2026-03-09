@@ -150,7 +150,7 @@ router.get('/', function(req, res, next) {
             //let ip = req.clientIPaddr;
             //let clientIP = requestIp.getClientIp(req);
             req.session.clientIP = clientIP;
-            console.log('before iplocation');
+            console.log('before iplocation #1');
             iplocation(ip)
                 .then(res2 => {
                     console.log('after iplocation');
@@ -169,7 +169,7 @@ router.get('/', function(req, res, next) {
                         res2.timezone,
                         _action_done
                     );
-                    console.log('before insert query');
+                    console.log('before insert query #1');
                     var query = "INSERT INTO ip_log (time_str, ip_addr, ip_query, as_field, country, countryCode, city, region, regionName, zip, timezone, action_done) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
                     connection.query(query, [
                         ipRec.timeStr,
@@ -186,6 +186,7 @@ router.get('/', function(req, res, next) {
                         ipRec.action_done
                     ], function(err, response) {
                         //what to do after the log has been written
+                        console.log('after insert, rendering index');
                         res.render('index', {
                             base_url: process.env.BASE_URL
                         });
@@ -625,10 +626,10 @@ router.get('/monitor_write', function(req, res, next) {
             //let ip = req.clientIPaddr;
             //let clientIP = requestIp.getClientIp(req);
             req.session.clientIP = clientIP;
-            console.log('before iplocation');
+            console.log('before iplocation #2 /monitor_write');
             iplocation(ip)
                 .then(res2 => {
-                    console.log('after iplocation');
+                    console.log('after iplocation #2');
                     _action_done = 'root-not logged in';
                     let ipRec = new ipRecStoreType(
                         moment().format("YYYY-MM-DD  HH:mm a"),
@@ -644,7 +645,7 @@ router.get('/monitor_write', function(req, res, next) {
                         res2.timezone,
                         _action_done
                     );
-                    console.log('before insert query');
+                    console.log('before insert query #2');
                     var query = "INSERT INTO ip_log (time_str, ip_addr, ip_query, as_field, country, countryCode, city, region, regionName, zip, timezone, action_done) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
                     /*
                     connection.query(query, [
