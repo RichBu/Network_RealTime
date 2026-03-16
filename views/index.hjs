@@ -16,7 +16,7 @@
 
         <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.3.0/handlebars.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.3.0/handlebars.js"></script>
 
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
@@ -28,7 +28,10 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
           crossorigin="anonymous"></script>
 
+		<link rel='stylesheet' type='text/css' href='/network-rt/css/index.css'>
+		<!-- for local debug
 		<link rel='stylesheet' type='text/css' href='../css/index.css'>
+		 -->
 	</head>
 
 	<body>
@@ -41,7 +44,7 @@
                 <div class="col-xs-4">
   			      <button id="btn-about" type="button" class="btn btn-primary leftButton" >About</button>
                     <!-- 
-						<a href='/'><img src="/images/genielogo.png" alt='TableTop Genie Logo' id='pageLogo' class='img img-thumbnail'></a>
+						<a href='/'><img src="/network-rt/images/genielogo.png" alt='TableTop Genie Logo' id='pageLogo' class='img img-thumbnail'></a>
 					-->	
                 </div>
                 <div class="col-xs-4">
@@ -228,14 +231,14 @@
 			  event.preventDefault();
 			  console.log("hit View Simulation Button")
 			  //$("#calc-oval-form").submit();
-			  window.location.href = '/monitor_read';
+			  window.location.href = '/network-rt/monitor_read';
 		  });
 
 		  $('#bttnReports').on('click', function (event) {
 			  event.preventDefault();
 			  console.log("hit Log Files Button")
 			  //$("#calc-oval-form").submit();
-			  window.location.href = '/reports';
+			  window.location.href = '/network-rt/reports';
 		  });
 
 		  $('#bttnCheckUpload').on('click', function (event) {

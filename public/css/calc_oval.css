@@ -259,7 +259,7 @@ input {
     margin: 0px;
     padding: 0px 0px 0px 10%;
     z-index: 5;
-    background-image: url("/images/IIoT_back_02.jpg") repeat center;
+    background-image: url("/network-rt/images/IIoT_back_02.jpg") repeat center;
     /*background: url('images/CNC_01_full_back.jpg');*/
     /* background: rgba(255,255,255,0.9);  */
 }
@@ -281,15 +281,15 @@ input {
     /* margin: 0px; */
     padding: 0px 0px 0px 5%;
     z-index: 5;
-    /* background: url('../images/Oval_back_01.jpg'); */
+    /* background: url('../network-rt/images/Oval_back_01.jpg'); */
     /* background-repeat: repeat; */
-    /* background-image: url('/images/Oval_back_01.jpg') repeat center; */
+    /* background-image: url('/network-rt/images/Oval_back_01.jpg') repeat center; */
     /* background-repeat: repeat-y; */
     background: rgba(255, 255, 255, 0.9);
 }
 
 .backgroundListStyle {
-    /* background: url("/images/Pic_01.jpg") repeat; */
+    /* background: url("/network-rt/images/Pic_01.jpg") repeat; */
     position: absolute;
     top: 0px;
     left: 0px;
@@ -301,7 +301,7 @@ input {
 }
 
 .backgroundIndexStyle {
-    background: url("/images/IIoT_back_02.jpg") repeat center;
+    background: url("/network-rt/images/IIoT_back_02.jpg") repeat center;
     position: absolute;
     top: 0px;
     left: 0px;
@@ -324,7 +324,7 @@ input {
 
 .blankImage>figure {
     backface-visibility: hidden;
-    background-image: url("/images/IIoT_back_02.jpg") repeat center;
+    background-image: url("/network-rt/images/IIoT_back_02.jpg") repeat center;
     /* background-size: cover; */
     /* background-position: center center; */
     color: transparent;

@@ -9,7 +9,7 @@ let router = express.Router();
 
 var connection = require('../connection');
 
-let fileLoc = './public/images/';
+let fileLoc = './public/network-rt/images/';
 
 const moment = require("moment");
 const momentDurationFormatSetup = require("moment-duration-format");

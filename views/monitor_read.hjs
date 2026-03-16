@@ -16,7 +16,7 @@
 
         <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.3.0/handlebars.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.3.0/handlebars.js"></script>
 
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
@@ -28,7 +28,7 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
           crossorigin="anonymous"></script>
 
-		<link rel='stylesheet' type='text/css' href='/css/calc_oval.css'>
+		<link rel='stylesheet' type='text/css' href='/network-rt/css/calc_oval.css'>
 	</head>
 
 	<body>
@@ -249,7 +249,7 @@
 			  };
 
 			  var dataOut = { machNum: machStr, testfield: "00" };
-			  var url = "/api/read-rt-data";
+			  var url = "/network-rt/api/read-rt-data";
 			  $.post(url, dataOut, function(data) {
 				//console.log("got read result");
 				//go thru the entire response date
@@ -298,7 +298,7 @@
 							hTag1.append("<br/>");
 							hTag1.append(data[i].mach_location);
 							hTag1.append("<br/");
-							var imgTag = $('<img src="'+'/images/' + data[i].image_to_use + '">');
+							var imgTag = $('<img src="'+'/network-rt/images/' + data[i].image_to_use + '">');
 							imgTag.addClass("imageCNCbig");
 
 							mainDiv.append(hTag1);
@@ -336,7 +336,7 @@
 
 							var divTag = $('<div>');
 							divTag.attr('id', 'currStatus');
-							//var imgTag = $('<img src="'+'/images/Blank_01.jpg">');
+							//var imgTag = $('<img src="'+'/network-rt/images/Blank_01.jpg">');
 							//divTag.append(imgTag);
 							mainDiv.append(divTag);
 

@@ -16,7 +16,7 @@
 
         <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.3.0/handlebars.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.3.0/handlebars.js"></script>
 
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
@@ -28,7 +28,10 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
           crossorigin="anonymous"></script>
 
+		<link rel='stylesheet' type='text/css' href='/network-rt/css/index.css'>
+		<!-- for local debug
 		<link rel='stylesheet' type='text/css' href='../css/index.css'>
+		 -->
 	</head>
 
 	<body>
@@ -61,7 +64,7 @@
 				</div>
 				<div class="col-lg-4 col-md-4 col-sm-8 col-xs-10 inputDivStyle">
 					<div class="row">
-						<form id="input-form" role="form" action="/reports/evt_list" method="post">
+						<form id="input-form" role="form" action="/network-rt/reports/evt_list" method="post">
 						<input type="text" name="startDate" id='startDate' class="" placeholder="start date YYYY/MM/DD">	
 						<input type="text" name="startTime" id='startTime' class="" placeholder="start time">	
 						<input type="text" name="endDate" id='endDate' class="" placeholder="end date YYYY/MM/DD">	
